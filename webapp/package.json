@@ -1,0 +1,73 @@
+{
+  "name": "ui-spa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "ui-watch": "vue-cli-service serve",
+    "api-watch": "nodemon graphql-server.js",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^18.4.0",
+    "@hapi/inert": "^5.2.2",
+    "@hapi/joi": "^16.1.7",
+    "apollo-boost": "^0.4.9",
+    "apollo-client": "^2.6.10",
+    "apollo-server": "^3.6.2",
+    "axios": "^0.19.0",
+    "blipp": "^4.0.1",
+    "core-js": "^3.3.2",
+    "graphql": "^16.2.0",
+    "hapi-pino": "^6.3.0",
+    "knex": "^0.21.1",
+    "objection": "^2.1.3",
+    "objection-graphql": "^0.4.5",
+    "pg": "^8.0.3",
+    "vue": "^2.6.10",
+    "vue-apollo": "^3.1.0",
+    "vue-router": "^3.1.3",
+    "vuetify": "^2.6.2",
+    "webpack": "^4.41.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-eslint": "^4.0.0",
+    "@vue/cli-service": "^4.0.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "nodemon": "^1.19.4",
+    "sass": "^1.19.0",
+    "sass-loader": "^8.0.0",
+    "vue-cli-plugin-vuetify": "^2.0.2",
+    "vue-template-compiler": "^2.6.10",
+    "vuetify-loader": "^1.3.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true,
+      "browser": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {
+      "no-console": "off"
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
