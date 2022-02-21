@@ -14,7 +14,7 @@ class Transaction extends Model {
                 status_id: { type: 'integer' },
                 category_id: { type: 'integer' },
                 description: { type: 'string', maxLength: 64},
-                date: { type: 'string', pattern: 'date'}
+                date: { type: 'string'}
             }
         }
     }

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "ui-watch": "vue-cli-service serve",
-    "api-watch": "nodemon graphql-server.js",
+    "api-watch": "nodemon graphql-server.js --ignore gen",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

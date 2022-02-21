@@ -6,6 +6,10 @@ class TransactionBucket extends Model {
         return 'TransactionBucket'
     }
 
+    static get idColumn() {
+        return ['transaction_id', 'bucket_id'];
+    }
+
     static get jsonSchema() {
         return {
             type: 'object',

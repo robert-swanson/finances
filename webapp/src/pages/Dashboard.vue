@@ -15,7 +15,7 @@
           :headers="transactionHeaders"
           :items="transactions"
           item-key="id"
-          :sort-by="['dateMills']"
+          :sort-by="['dateISO']"
           :sort-desc="[true]"
           show-select
           v-model="selected"
@@ -25,7 +25,7 @@
           :search="filter"
       >
         <template v-slot:top>
-          <v-toolbar class="blue lighten-4" elevation="1">
+          <v-toolbar elevation="1">
             <v-text-field v-model="filter" label="Search" single-line hide-details  prepend-icon="mdi-magnify"/>
             <v-spacer/>
             <v-tooltip bottom>
@@ -58,7 +58,7 @@
         <template v-slot:item.statusEnum="{ item }">
           <v-tooltip bottom v-if="item.status=== 1" >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on">
+              <v-btn icon v-bind="attrs" v-on="on" @click="confirmTransaction(item)">
                 <v-icon class="orange--text">mdi-eye</v-icon>
               </v-btn>
             </template>
@@ -70,23 +70,15 @@
             </template>
             <span>Unlinked Transaction</span>
           </v-tooltip>
-          <v-tooltip bottom v-if="item.status=== 2" @click="deleteUnlinked">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on">
-                <v-icon class="red--text">mdi-delete</v-icon>
-              </v-btn>
-            </template>
-            <span>Delete Unlinked Transaction</span>
-          </v-tooltip>
         </template>
         <template v-slot:item.description="props">
-          <v-edit-dialog :return-value.sync="props.item.description" @save="save" @cancel="cancel" @open="open" @close="close" >
+          <v-edit-dialog :return-value.sync="props.item.description" @save="modifiedDescription(props.item)"  >
             {{ props.item.description }}
-            <template v-slot:input> <v-text-field v-model="props.item.description" :rules="[max25chars]" label="Edit" single-line counter ></v-text-field> </template>
+            <template v-slot:input> <v-text-field v-model="props.item.description" :rules="[max64chars]" label="Edit" single-line counter ></v-text-field> </template>
           </v-edit-dialog>
         </template>
         <template v-slot:item.category="props">
-          <v-edit-dialog :return-value.sync="props.item.category" @save="save" @cancel="cancel" @open="open" @close="close" >
+          <v-edit-dialog :return-value.sync="props.item.category" @save="modifiedCategory(props.item)">
             {{ props.item.category }}
             <template v-slot:input>
               <v-autocomplete :items="categories" v-model="props.item.category " />
@@ -94,7 +86,7 @@
           </v-edit-dialog>
         </template>
         <template v-slot:item.bucketString="props">
-          <v-edit-dialog  @save="save" @cancel="cancel" @open="clickedTransactionBuckets(props.item)" @close="close">
+          <v-edit-dialog  @open="clickedTransactionBuckets(props.item)" @close="closedTransactionBuckets(props.item)">
             <template v-slot:input>
               <v-data-table
                 :headers="bucketHeaders"
@@ -114,7 +106,7 @@
                   </v-edit-dialog>
                 </template>
                 <template v-slot:item.name=" { item }">
-                  <v-edit-dialog @save="modifiedTransactionBucketName">
+                  <v-edit-dialog @save="modifiedTransactionBucketName(item)">
                     {{item.name}}
                     <template v-slot:input>
                       <v-autocomplete :items="buckets" v-model="item.name " />
@@ -129,7 +121,7 @@
                     </v-col>
                     <v-spacer></v-spacer>
                     <v-col>
-                      <span style="margin-left: auto; margin-right: 0" :class="currentExpected === currentNet ? 'green--text' : 'red--text'">{{asCurrency(currentExpected-currentNet)}} </span>
+                      <span style="margin-left: auto; margin-right: 0" :class="currentExpected === currentNet ? 'green--text' : 'red--text font-weight-bold'">{{asCurrency(currentExpected-currentNet)}} </span>
                     </v-col>
                   </v-row>
                 </template>
@@ -138,7 +130,7 @@
 
             <v-tooltip v-for="bucket in props.item.buckets" :key="bucket.id" bottom>
               <template #activator="{ on }">
-                <v-chip dense v-on="on" outlined class="mr-1">{{bucket.name}}</v-chip>
+                <v-chip dense v-on="on" outlined v-bind:class="{'green--text': bucket.amount > 0, 'green': bucket.amount > 0, 'red--text': bucket.amount < 0, 'red': bucket.amount < 0, 'grey--text': bucket.amount === 0, 'grey': bucket.amount === 0, 'mr-1': true}">{{bucket.name}}</v-chip>
               </template>
               {{asCurrency(bucket.amount)}}
             </v-tooltip>
@@ -147,21 +139,21 @@
         <template v-slot:item.amount="{ item }">
           <span v-if="item.amount> 0" class="green--text">{{item.amountCurr}}</span>
           <span v-if="item.amount < 0" class="red--text">{{item.amountCurr}}</span>
-          <span v-if="item.amount == 0.0" class="blue--text">{{item.amountCurr}}</span>
+          <span v-if="item.amount === 0.0" class="blue--text">{{item.amountCurr}}</span>
         </template>
-        <template v-slot:item.date =" { item }">
-          <v-edit-dialog>
+        <template v-slot:item.dateISO =" { item }">
+          <v-edit-dialog @save="modifiedDate(item)">
             <template v-slot:input>
-              <v-date-picker v-model="item.dateMills"></v-date-picker>
+              <v-date-picker v-model="item.dateISO"></v-date-picker>
             </template>
-            <span>{{item.date}}</span>
+            <span>{{item.dateFormatted}}</span>
           </v-edit-dialog>
 
         </template>
       </v-data-table>
-      <v-snackbar v-model="snack" :timeout="3000" :color="snackColor" >
+      <v-snackbar v-model="snackOn" :timeout="3000" :color="snackColor" >
         {{ snackText }}
-        <template v-slot:action="{ attrs }"> <v-btn v-bind="attrs" text @click="snack = false" > Close </v-btn> </template>
+        <template v-slot:action="{ attrs }"> <v-btn v-bind="attrs" text @click="snackOn = false" > Close </v-btn> </template>
       </v-snackbar>
     </v-container>
   </v-container>
@@ -177,10 +169,48 @@ export default {
   },
 
   methods: {
-    formattedDate(input) {   // thanks, https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
-      const date = new Date(parseInt(input))
-      var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-      return monthNames[date.getMonth()] + " " + date.getDate() + ", " + (1900 + date.getYear())
+    //  ================ Parsing Transactions =================
+    updateData() {
+      this.updateTransactions()
+      this.categories = this.categoriesQuery.map(cat => cat.name)
+      this.buckets = []
+      this.bucketIDs = {}
+      for (const bucket of this.bucketsQuery) {
+        this.buckets.push(bucket.name)
+        this.bucketIDs[bucket.name] = bucket.id
+      }
+
+      console.log("buckets", this.buckets)
+      console.log("bucketIDs", this.bucketIDs)
+      console.log("transactions", this.transactions)
+    },
+
+    updateTransactions() {
+      console.log("Loading Transactions")
+      this.transactions = []
+      for (const transaction of this.transactionsQuery) {
+        const bucketInfo = this.transactionBuckets(transaction)
+        const date = new Date(parseInt(transaction.date)).toISOString().substr(0, 10)
+        this.transactions.push({
+          id: transaction.id,
+          description: transaction.description,
+          dateFormatted: this.formattedDate(date),
+          dateISO: date,
+          category: transaction.category.name,
+          bucketString: bucketInfo.bucketString,
+          buckets: bucketInfo.buckets,
+          status: transaction.status.id,
+          statusEnum: this.transactionStatus(transaction),
+          amount: this.transactionAmount(transaction),
+          amountCurr: this.asCurrency(this.transactionAmount(transaction)),
+        })
+      }
+      this.transactions = this.transactions.sort((a, b) => a.id - b.id)
+      this.loading=false
+    },
+
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     },
 
     transactionAmount(transaction) {
@@ -198,18 +228,216 @@ export default {
       var bucketString = ""
       transaction.transactionBucket.forEach(tb => {
         buckets.push({
-          id: this.nextBucketID,
+          id: this.nextTransactionBucketID,
           name: tb.bucket.name,
           amount: tb.bucket_amount,
           priorityName: tb.bucket.priority.name,
           priorityLevel: tb.bucket.priority.level,
         })
         bucketString += tb.bucket.name
-        this.nextBucketID++
+        this.nextTransactionBucketID++
       })
       return {buckets, bucketString}
     },
 
+    // ================== Handlers =================
+    transactionClicked(event) {
+      console.log("clicked", event)
+    },
+
+    deleteUnlinked(event) {
+      console.log("clicked", event)
+    },
+
+    addBucket(event) {
+      console.log(event)
+    },
+
+    confirmTransaction(transaction) {
+      this.$apollo.mutate({
+        mutation: gql`mutation ConfirmTransaction($id: Int!) {
+    confirmTransaction(id: $id)
+}`,
+        variables: {
+          id: transaction.id,
+          description: transaction.description
+        },
+      })
+      .then(() => {
+        this.snack("Confirmed Transactions")
+      })
+      .catch((err) => {
+        console.log(err)
+        this.snackErr("Not Saved")
+      })
+      console.log("Confirmed Transaction: ", transaction)
+      transaction.status = 3
+      transaction.statusEnum = "ready"
+    },
+
+    modifiedDescription(transaction) {
+      console.log("Changed description to: ", transaction.description)
+      this.$apollo.mutate({
+          mutation: gql`mutation($id: Int!, $description: String!) {
+                     editDescription(id: $id, description: $description)
+                     }`,
+          variables: {
+                   id: transaction.id,
+                   description: transaction.description
+                   },
+      })
+          .then(this.snack("Changed Description"))
+          .catch((err) => {
+            console.log(err)
+            this.snackErr("Not Saved")
+          })
+    },
+
+    modifiedCategory(transaction) {
+      console.log("Changed category to: ", transaction)
+      this.$apollo.mutate({
+        mutation: gql`mutation EditCategory($id: Int!, $category: String!) {
+    editCategory(id: $id, category: $category)
+}`,
+        variables: {
+          id: transaction.id,
+          category: transaction.category
+        },
+      })
+          .then(this.snack("Changed Category"))
+          .catch((err) => {
+            console.log(err)
+            this.snackErr("Not Saved")
+          })
+    },
+
+    modifiedDate(transaction) {
+      console.log(transaction)
+      const variables = {
+        id: transaction.id,
+        date: transaction.dateISO
+      }
+      console.log("Mutating date: ", variables)
+      transaction.dateFormatted = this.formattedDate(transaction.dateISO)
+      this.$apollo.mutate({
+        mutation: gql`mutation RootMutationType($id: Int!, $date: String!) {
+    editDate(id: $id, date: $date)
+}`,
+        variables,
+      })
+    },
+
+    clickedAddTransactionBucket () {
+      this.currentTransaction.buckets.push({
+        id: this.nextTransactionBucketID,
+        name: 'Default',
+        amount: 0,
+        priorityName: '',
+        priorityLevel: 0,
+      })
+      this.nextTransactionBucketID++
+    },
+
+    deleteTransactionBuckets() {
+      var ids = this.selectedBuckets.map(bkt => bkt.id)
+      console.log("Old Buckets", this.currentTransaction.buckets)
+      this.currentTransaction.buckets = this.currentTransaction.buckets.filter(bkt => !ids.includes(bkt.id))
+      console.log("New Buckets", this.currentTransaction.buckets)
+      // this.currentTransaction.buckets = this.currentTransaction.buckets.filter(bkt => this.selectedBuckets.filter(selectedBkt => selectedBkt.id === bkt.id).length > 0)
+    },
+
+    modifiedTransactionBucketAmount() {
+      var sum = 0
+      this.currentTransaction.buckets.forEach(b => sum += parseFloat(b.amount))
+      this.currentNet = sum
+      console.log("modified", this.currentNet)
+    },
+
+    modifiedTransactionBucketName(bucket) {
+      this.currentTransaction.bucketString = ""
+      this.currentTransaction.buckets.forEach(bkt => {
+        this.currentTransaction.bucketString += bkt.name
+      })
+      bucket.id = this.bucketIDs[bucket.name]
+    },
+
+    clickedTransactionBuckets (transaction) {
+      console.log(transaction)
+      this.currentTransaction = transaction
+      this.currentExpected = transaction.amount
+      this.modifiedTransactionBucketAmount()
+      console.log(transaction.amount)
+    },
+
+    closedTransactionBuckets(transaction) {
+      console.log("closed buckets: ", transaction)
+      this.currentTransaction.bucketString = ""
+      var seenBuckets = []
+      var bucketSum = 0;
+      var variables = {
+        transaction_id: transaction.id,
+        buckets: [ ]
+      }
+
+      for (const bkt of transaction.buckets) {
+        console.log(bkt.name)
+        if (seenBuckets.includes(bkt.name)) {
+          this.snackErr("Duplicate Bucket '" + bkt.name + "', Not Saved")
+          return
+        } else {
+          seenBuckets.push(bkt.name)
+        }
+        bkt.amount = parseFloat(bkt.amount)
+        this.currentTransaction.bucketString += bkt.name
+        bucketSum += bkt.amount
+        variables.buckets.push({
+          bucket_id: bkt.id,
+          bucket_amount: bkt.amount
+        })
+        console.log(transaction.id, bkt.id, bkt.amount)
+      }
+
+      console.log(seenBuckets)
+
+      const error = bucketSum - transaction.amount
+      if (error !== 0) {
+        this.snackErr(this.asCurrency(error) + " Missing, Not Saved")
+        transaction.buckets = this.currentTransaction.buckets
+        console.log("Counted: " + bucketSum, " Expected: " + transaction.amount)
+      } else {
+        console.log("Saving Buckets: \n", variables)
+        this.$apollo.mutate({
+          mutation: gql`mutation SetTransactionBuckets($transaction_id: Int!, $buckets: [UniqueName]!) {
+    setTransactionBuckets(transaction_id: $transaction_id, buckets: $buckets)
+}`,
+          variables,
+        })
+            .then(this.snack("Buckets Saved"))
+            .catch((err) => {
+              console.log(err)
+              this.snackErr("Not Saved")
+            })
+      }
+      //    Need to make query to delete and create (maybe selectivly update instead) transactionBuckets
+    },
+
+    clickedBucketRow(val) {
+      console.log(val)
+    },
+
+    snack(message){
+      this.snackOn = true
+      this.snackColor = 'success'
+      this.snackText = message
+    },
+
+    snackErr(message){
+      this.snackOn = true
+      this.snackColor = 'error'
+      this.snackText = message
+    },
+
+    // ==================== Formatters =============
     asCurrency(num) {
       if (typeof num == "string") {
         try {
@@ -225,118 +453,62 @@ export default {
       }
     },
 
-    transactionClicked(event) {
-      console.log("clicked", event)
+    formattedDate(input) {   // thanks, https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
+      const date = new Date(input)
+      date.setDate(date.getDate()+1)
+      var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+      return monthNames[date.getMonth()] + " " + date.getDate() + ", " + (1900 + date.getYear())
     },
-
-    updateData() {
-      this.updateTransactions()
-      this.categories = this.categoriesQuery.map(cat => cat.name)
-      this.buckets = this.bucketsQuery.map(bkt => bkt.name)
-      console.log(this.buckets )
-      console.log(this.transactions )
-    },
-
-    updateTransactions() {
-      console.log("Loading Transactions")
-      this.transactions = []
-      for (const transaction of this.transactionsQuery) {
-        const bucketInfo = this.transactionBuckets(transaction)
-        this.transactions.push({
-          id: transaction.id,
-          description: transaction.description,
-          date: this.formattedDate(transaction.date),
-          dateMills: new Date(parseInt(transaction.date)).toISOString().substr(0, 10),
-          category: transaction.category.name,
-          bucketString: bucketInfo.bucketString,
-          buckets: bucketInfo.buckets,
-          status: transaction.status.id,
-          statusEnum: this.transactionStatus(transaction),
-          amount: this.transactionAmount(transaction),
-          amountCurr: this.asCurrency(this.transactionAmount(transaction)),
-        })
-      }
-      this.loading=false
-    },
-    sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    },
-
-    deleteUnlinked(event) {
-      console.log("clicked", event)
-    },
-
-    addBucket(event) {
-      console.log(event)
-    },
-
-    save (event) {
-      this.snack = true
-      this.snackColor = 'success'
-      this.snackText = 'Data saved'
-      console.log(event)
-    },
-    cancel () {
-    },
-    open () {
-    },
-    close () {
-      console.log('Dialog closed')
-    },
-
-    clickedAddTransactionBucket () {
-      this.currentTransaction.buckets.push({
-        id: this.nextBucketID,
-        name: '',
-        amount: 0,
-        priorityName: '',
-        priorityLevel: 0,
-      })
-      this.nextBucketID++
-    },
-
-    deleteTransactionBuckets() {
-      console.log(this.selectedBuckets)
-
-      this.currentTransaction.buckets = this.currentTransaction.buckets.filter(bkt => this.selectedBuckets.filter(selectedBkt => selectedBkt.id === bkt.id).length > 0)
-    },
-
-    modifiedTransactionBucketAmount() {
-      var sum = 0
-      this.currentTransaction.buckets.forEach(b => sum += parseFloat(b.amount))
-      this.currentNet = sum
-      console.log("modified", this.currentNet)
-    },
-
-    modifiedTransactionBucketName() {
-      this.currentTransaction.bucketString = ""
-      this.currentTransaction.buckets.forEach(bkt => {
-        this.currentTransaction.bucketString += bkt.name
-      })
-    },
-
-    clickedTransactionBuckets (transaction) {
-      console.log(transaction)
-      this.currentTransaction = transaction
-      this.currentExpected = transaction.amount
-      this.modifiedTransactionBucketAmount()
-      console.log(transaction.amount)
-    },
-
-
-
-
-    clickedBucketRow(val) {
-      console.log(val)
-    }
   },
 
   mounted: function() {
     this.loading=true
-    console.log('before')
-    this.sleep(300)
+    this.sleep(500)
         .then(this.updateData)
-    console.log('after')
+  },
+
+  data: function() {
+    return {
+      net: 3141.15,
+      reflectionDate: "1/12/21",
+      newBookName: "",
+
+      transactions: [],
+      transactionsQuery: [],
+      currentTransaction: {},
+
+      categories: [],
+      categoriesQuery: [],
+
+      buckets: [],
+      bucketIDs: {},
+      bucketsQuery: [],
+      selectedBuckets: [],
+      nextTransactionBucketID:  0,
+
+      loading: true,
+      transactionHeaders: [
+        {text: "", value: "statusEnum"},
+        {text: "Description", value: "description"},
+        {text: "Category", value: "category"},
+        {text: "Bucket", value: "bucketString"},
+        {text: "Amount", value: "amount"},
+        {text: "Date", value: "dateISO"},
+        {text: "Date", value: "dateFormatted", align: ' d-none'},
+      ],
+      bucketHeaders: [
+        {text: "Bucket", value: "name"},
+        {text: "Amount", value: "amount"},
+      ],
+      filter: '',
+      selected: [],
+      max64chars: v => v.length <= 64 || 'Input too long!',
+      snackText: '',
+      snackColor: '',
+      snackOn: false,
+      currentNet: 100,
+      currentExpected: 100
+    }
   },
 
   apollo: {
@@ -349,10 +521,10 @@ export default {
       }`
     },
     bucketsQuery: {
-      query: gql`
-      {
+      query: gql`{
         bucketsQuery: buckets {
-          name
+            name
+            id
         }
       }`
     },
@@ -391,47 +563,5 @@ export default {
     },
   },
 
-  data: function() {
-    return {
-      net: 3141.15,
-      reflectionDate: "1/12/21",
-      newBookName: "",
-
-      transactions: [],
-      transactionsQuery: [],
-      currentTransaction: {},
-
-      categories: [],
-      categoriesQuery: [],
-
-      buckets: [],
-      bucketsQuery: [],
-      selectedBuckets: [],
-      nextBucketID:  0,
-
-      loading: true,
-      transactionHeaders: [
-        {text: "", value: "statusEnum"},
-        {text: "Description", value: "description"},
-        {text: "Category", value: "category"},
-        {text: "Bucket", value: "bucketString"},
-        {text: "Amount", value: "amount"},
-        {text: "Date", value: "date"},
-        {text: "Date", value: "dateMills", align: ' d-none'},
-      ],
-      bucketHeaders: [
-        {text: "Bucket", value: "name"},
-        {text: "Amount", value: "amount"},
-      ],
-      filter: '',
-      selected: [],
-      max25chars: v => v.length <= 25 || 'Input too long!',
-      snackText: '',
-      snackColor: '',
-      snack: false,
-      currentNet: 100,
-      currentExpected: 100
-    }
-  }
 }
 </script>
