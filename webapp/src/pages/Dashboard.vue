@@ -44,43 +44,7 @@
               </template>
               <span>Merge Transactions</span>
             </v-tooltip>
-
-
-
-            <v-dialog v-model="csvDialog" width="500">
-              <template v-slot:activator="{ on: csvDialog, attrs: csvDialogAttrs}">
-                <v-tooltip bottom v-model="csvTooltip">
-                  <template v-slot:activator="{ on: csvTooltip, attrs: csvTooltipAttrs}">
-                    <v-btn icon v-on="{ ...csvDialog , ...csvTooltip}" v-bind="{...csvDialogAttrs, ...csvTooltipAttrs}">
-                      <v-icon>mdi-file-import</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>Import CSV Files</span>
-                </v-tooltip>
-              </template>
-              <v-card>
-                <v-card-title> Import CSV Files </v-card-title>
-                <v-divider/>
-                <upload-files></upload-files>
-<!--                <v-file-input multiple counter accept=".csv" class="ma-4">-->
-<!--                  <template v-slot:selection="{ text }">-->
-<!--                    <v-chip small label color="primary" >-->
-<!--                      {{ text }}-->
-<!--                    </v-chip>-->
-<!--                  </template>-->
-<!--                </v-file-input>-->
-                <v-divider></v-divider>
-
-                <v-card-actions>
-                  <v-spacer/>
-                  <v-btn color="primary" text @click="uploadFile" >
-                    Upload
-                  </v-btn>
-                  <v-spacer/>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-
+            <upload-files></upload-files>
           </v-toolbar>
         </template>
 
@@ -272,11 +236,6 @@ export default {
     },
 
     // ================== Handlers =================
-    uploadFile() {
-      this.csvDialog = false
-      console.log("upload")
-    },
-
     transactionClicked(event) {
       console.log("clicked", event)
     },
@@ -543,8 +502,6 @@ export default {
       snackColor: '',
       snackOn: false,
       importDialog: false,
-      csvDialog: false,
-      csvTooltip: false,
       currentNet: 100,
       currentExpected: 100
     }

@@ -1,5 +1,7 @@
 const fs = require('fs');
 const uploadFile = require("../middleware/upload");
+const processMoneyRecords = require("../../scripts/processMoneyRecords")
+const directoryPath = __basedir + "/resources/uploads/";
 const upload = async (req, res) => {
     try {
         await uploadFile(req, res);
@@ -7,8 +9,9 @@ const upload = async (req, res) => {
             return res.status(400).send({ message: "Please upload a file!" });
         }
         res.status(200).send({
-            message: "Uploaded the file successfully: " + req.file.originalname,
+            message: processMoneyRecords(directoryPath+req.file.originalname),
         });
+
     } catch (err) {
         if (err.code == "LIMIT_FILE_SIZE") {
             return res.status(500).send({
@@ -21,7 +24,6 @@ const upload = async (req, res) => {
     }
 };
 const getListFiles = (req, res) => {
-    const directoryPath = __basedir + "/resources/uploads/";
     fs.readdir(directoryPath, function (err, files) {
         if (err) {
             res.status(500).send({

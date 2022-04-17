@@ -1,46 +1,43 @@
 <template>
-  <div>
-    <div v-if="currentFile">
+  <v-dialog v-model="csvDialog" width="500">
+    <template v-slot:activator="{ on: csvDialog, attrs: csvDialogAttrs}">
+      <v-tooltip bottom v-model="csvTooltip">
+        <template v-slot:activator="{ on: csvTooltip, attrs: csvTooltipAttrs}">
+          <v-btn icon v-on="{ ...csvDialog , ...csvTooltip}" v-bind="{...csvDialogAttrs, ...csvTooltipAttrs}">
+            <v-icon>mdi-file-import</v-icon>
+          </v-btn>
+        </template>
+        <span>Import CSV Files</span>
+      </v-tooltip>
+    </template>
+    <v-card>
+      <v-card-title> Import CSV Files </v-card-title>
+      <v-divider/>
       <div>
-        <v-progress-linear
-            v-model="progress"
-            color="light-blue"
-            height="25"
-            reactive
-        >
-          <strong>{{ progress }} %</strong>
-        </v-progress-linear>
+        <v-row no-gutters justify="center" align="center" class="ma-4">
+            <v-file-input
+                show-size
+                label="File input"
+                accept=".csv"
+                @change="selectFile"
+            ></v-file-input>
+        </v-row>
+        <v-alert v-if="message" border="left" color="warning" dark class="ma-4">
+          {{ message }}
+        </v-alert>
       </div>
-    </div>
-    <v-row no-gutters justify="center" align="center">
-      <v-col cols="8">
-        <v-file-input
-            show-size
-            label="File input"
-            @change="selectFile"
-        ></v-file-input>
-      </v-col>
-      <v-col cols="4" class="pl-2">
-        <v-btn color="success" dark small @click="upload">
+      <v-divider></v-divider>
+
+      <v-card-actions>
+        <v-spacer/>
+        <v-btn color="primary" text @click="upload" >
           Upload
           <v-icon right dark>mdi-cloud-upload</v-icon>
         </v-btn>
-      </v-col>
-    </v-row>
-    <v-alert v-if="message" border="left" color="blue-grey" dark>
-      {{ message }}
-    </v-alert>
-    <v-card v-if="fileInfos.length > 0" class="mx-auto">
-      <v-list>
-        <v-subheader>List of Files</v-subheader>
-        <v-list-item-group color="primary">
-          <v-list-item v-for="(file, index) in fileInfos" :key="index">
-            <a :href="file.url">{{ file.name }}</a>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+        <v-spacer/>
+      </v-card-actions>
     </v-card>
-  </div>
+  </v-dialog>
 </template>
 
 <script>
@@ -52,7 +49,10 @@ export default {
       currentFile: undefined,
       progress: 0,
       message: "",
-      fileInfos: []
+      fileInfos: [],
+      csvDialog: false,
+      csvTooltip: false,
+      resp: undefined
     };
   },
   methods: {
@@ -70,23 +70,20 @@ export default {
         this.progress = Math.round((100 * event.loaded) / event.total);
       })
           .then((response) => {
-            this.message = response.data.message;
+            this.resp = response
             return UploadService.getFiles();
           })
           .then((files) => {
             this.fileInfos = files.data;
+            this.csvDialog = false
+            this.csvTooltip = false
           })
-          .catch(() => {
+          .catch((err) => {
             this.progress = 0;
-            this.message = "Could not upload the file!";
+            this.message = "Could not upload the file!\n"+err;
             this.currentFile = undefined;
           });
     },
-    mounted() {
-      UploadService.getFiles().then(response => {
-        this.fileInfos = response.data;
-      });
-    }
   }
 };
 </script>
