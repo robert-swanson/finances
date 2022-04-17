@@ -179,3 +179,21 @@ server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
 
+
+// Express Server https://www.bezkoder.com/node-js-express-file-upload/
+
+const cors = require("cors");
+const express = require("express");
+const app = express();
+global.__basedir = __dirname;
+var corsOptions = {
+    origin: "http://localhost:8080"
+};
+app.use(cors(corsOptions));
+const initRoutes = require("./src/express/routes");
+app.use(express.urlencoded({ extended: true }));
+initRoutes(app);
+let port = 8081;
+app.listen(port, () => {
+    console.log(`📁 Express Server running at localhost:${port}`);
+});
