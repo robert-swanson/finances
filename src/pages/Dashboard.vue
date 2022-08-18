@@ -458,7 +458,7 @@ export default {
 
   mounted: function() {
     this.loading=true
-    this.sleep(500)
+    this.sleep(2000)
         .then(this.updateData)
   },
 

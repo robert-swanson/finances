@@ -14,7 +14,7 @@ class Statement extends Model {
                 id: { type: 'integer' },
                 description: { type: 'string', maxLength: 64},
                 account_id: { type: 'integer' },
-                date: { type: 'string', pattern: 'date'},
+                date: { type: 'string'},
                 category: { type: 'string', maxLength: 64},
                 amount: { type: 'number' },
             }

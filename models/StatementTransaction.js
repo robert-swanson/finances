@@ -14,7 +14,7 @@ class StatementTransaction extends Model {
                 statement_id: { type: 'integer' },
                 transaction_id: { type: 'integer' },
                 note: { type: 'string', maxLength: 64},
-                partial_amount: { type: 'integer' },
+                partial_amount: { type: 'number' },
             }
         }
     }
