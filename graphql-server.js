@@ -147,6 +147,41 @@ const mutationType = new GraphQLObjectType({
                 return Transaction.query().findById(id).patch({date});
             },
         },
+        mergeTransactions: {
+            description: 'Merges the transactions specified by the list of transaction IDs',
+            type: GraphQLInt,
+            args: {
+                ids: { type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(GraphQLInt)))}
+            },
+            resolve: async (root, input) => {
+                const {ids} = input
+                var transactions = await Transaction.query().findByIds(ids)
+                var description = "Merge: " + transactions.map(t => "'" + t.description + "'").join(", ")
+                if (description.length > 64) {
+                    description = description.substr(0, 61) + "..."
+                }
+                let date = transactions.map(t => t.date).sort((a,b) => {a > b})[0].toISOString()
+                let category_id = transactions[0].category_id
+                let newTransaction = await Transaction.query().insert({status_id: 1, category_id, description, date})
+                let transaction_id = newTransaction.id
+                console.log("Merged: " + description)
+
+                for (let old_id of ids) {
+                    console.log("Processing " + old_id)
+                    //Update Statement Transaction
+                    await StatementTransaction.query().patch({transaction_id}).where('transaction_id', old_id)
+
+                    //Update Transaction Buckets
+                    await TransactionBucket.query().patch({transaction_id}).where('transaction_id', old_id)
+
+                    //Remove Old Transactions
+                    await Transaction.query().delete().where('id', old_id)
+                }
+
+
+                return transaction_id
+            }
+        }
 
     //    Need to make query to delete and create (maybe selectivly update instead) transactionBuckets
     }),

@@ -71,7 +71,7 @@ let processCSV = async (csv, earliestDate) => {
 
         const regex = /[^\d-\.]/ig;
 
-        if (newStatement.Destination) {
+        if (newStatement.Destination && newStatement.Earned !== "$0.00") {
             let account_id = accounts[newStatement.Destination]
             if (!account_id) {
                 const new_account = await Account.query().insert({name: newStatement.Destination, active: true})
@@ -88,7 +88,7 @@ let processCSV = async (csv, earliestDate) => {
             await StatementTransaction.query().insert({statement_id, transaction_id, note, partial_amount: amount})
         }
 
-        if (newStatement.Source) {
+        if (newStatement.Source && newStatement.Paid !== "$0.00") {
             let account_id = accounts[newStatement.Source]
             if (!account_id) {
                 const new_account = await Account.query().insert({name: newStatement.Source, active: true})

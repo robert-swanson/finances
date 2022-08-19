@@ -1,16 +1,66 @@
 <template>
-  <v-container>
-    <v-row align="center" >
-      <v-col>
-        <p class="headline mb-0"> <b>Net Amount:</b> ${{net}} </p>
-      </v-col>
+  <v-container class="pa-0">
+<!--    <v-row align="center" >-->
+<!--      <v-col>-->
+<!--        <p class="headline mb-0"> <b>Net Amount:</b> ${{net}} </p>-->
+<!--      </v-col>-->
 
-      <v-col>
-         <p class="headline mb-0"> <b>Reflecting Date:</b> {{reflectionDate}} </p>
-      </v-col>
-    </v-row>
+<!--      <v-col>-->
+<!--         <p class="headline mb-0"> <b>Reflecting Date:</b> {{reflectionDate}} </p>-->
+<!--      </v-col>-->
+<!--    </v-row>-->
 
-    <v-container>
+
+      <v-tooltip left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab dark color="green" right bottom fixed v-bind="attrs" v-on="on">
+            <v-icon large>mdi-plus</v-icon>
+          </v-btn>
+        </template>
+        <span>Create New Transaction</span>
+      </v-tooltip>
+
+      <v-speed-dial
+          v-if="selected.length > 0"
+          v-model="fab"
+          left
+          bottom
+          direction="top"
+          open-on-hover
+          fixed
+          transition="slide-y"
+      >
+        <template v-slot:activator>
+          <v-btn v-model="fab" color="blue darken-2" dark fab >
+            <v-icon v-if="fab"> mdi-close </v-icon>
+            <v-icon v-else> mdi-dots-vertical </v-icon>
+          </v-btn>
+        </template>
+        <v-tooltip right v-if="selected.length > 1">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn fab dark small color = "blue" v-bind="attrs" v-on="on" @click="mergeSelectedTransactions">
+              <v-icon>mdi-call-merge</v-icon>
+            </v-btn>
+          </template>
+          <span>Merge Transactions</span>
+        </v-tooltip>
+
+        <split-transaction v-if="selected.length === 1"></split-transaction>
+
+
+        <v-tooltip right v-if="selected.length > 0">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn fab dark small color="red" v-bind="attrs" v-on="on" >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </template>
+          <span>Delete Transaction</span>
+        </v-tooltip>
+
+
+
+
+      </v-speed-dial>
       <v-data-table
           :headers="transactionHeaders"
           :items="transactions"
@@ -22,28 +72,12 @@
           :items-per-page="100"
           :footer-props="{'items-per-page-options': [10, 100, 500, 1000, -1]}"
           :loading="loading" loading-text="Loading"
-          :search="filter"
+          :search="searchText"
       >
         <template v-slot:top>
           <v-toolbar elevation="1">
-            <v-text-field v-model="filter" label="Search" single-line hide-details  prepend-icon="mdi-magnify"/>
+            <v-text-field v-model="searchText" label="Search" single-line hide-details  prepend-icon="mdi-magnify"/>
             <v-spacer/>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn icon v-bind="attrs" v-on="on">
-                  <v-icon>mdi-call-split</v-icon>
-                </v-btn>
-              </template>
-              <span>Split Transaction</span>
-            </v-tooltip>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn icon v-bind="attrs" v-on="on">
-                  <v-icon>mdi-call-merge</v-icon>
-                </v-btn>
-              </template>
-              <span>Merge Transactions</span>
-            </v-tooltip>
             <upload-files></upload-files>
           </v-toolbar>
         </template>
@@ -123,7 +157,7 @@
 
             <v-tooltip v-for="bucket in props.item.buckets" :key="bucket.id" bottom>
               <template #activator="{ on }">
-                <v-chip dense v-on="on" outlined v-bind:class="{'green--text': bucket.amount > 0, 'green': bucket.amount > 0, 'red--text': bucket.amount < 0, 'red': bucket.amount < 0, 'grey--text': bucket.amount === 0, 'grey': bucket.amount === 0, 'mr-1': true}">{{bucket.name}}</v-chip>
+                <v-chip dense small class="ma-1" v-on="on" outlined v-bind:class="{'green--text': bucket.amount > 0, 'green': bucket.amount > 0, 'red--text': bucket.amount < 0, 'red': bucket.amount < 0, 'grey--text': bucket.amount === 0, 'grey': bucket.amount === 0, 'mr-1': true}">{{bucket.name}}</v-chip>
               </template>
               {{asCurrency(bucket.amount)}}
             </v-tooltip>
@@ -148,17 +182,18 @@
         {{ snackText }}
         <template v-slot:action="{ attrs }"> <v-btn v-bind="attrs" text @click="snackOn = false" > Close </v-btn> </template>
       </v-snackbar>
-    </v-container>
   </v-container>
 </template>
 
 <script>
 import gql from 'graphql-tag'
 import UploadFiles from "@/components/UploadFiles";
+import SplitTransaction from "@/components/SplitTransaction";
+
 
 export default {
   name: "Dashboard",
-  components: {UploadFiles},
+  components: {SplitTransaction, UploadFiles},
   computed: {
 
   },
@@ -175,33 +210,76 @@ export default {
         this.bucketIDs[bucket.name] = bucket.id
       }
 
-      console.log("buckets", this.buckets)
-      console.log("bucketIDs", this.bucketIDs)
-      console.log("transactions", this.transactions)
+      // console.log("buckets", this.buckets)
+      // console.log("bucketIDs", this.bucketIDs)
+      // console.log("transactions", this.transactions)
+    },
+
+    async queryTransactionByID(id) {
+      let queryResponse = await this.$apollo.query({
+        query: gql`query Query($transactionId: Int) {
+    transaction(id: $transactionId) {
+        id
+        description
+        date
+        category {
+            name
+        }
+        status {
+            description
+            id
+        }
+        statementTransaction {
+            partial_amount
+        }
+        transactionBucket {
+            transaction_id
+            bucket_id
+            bucket_amount
+            bucket {
+                name
+                priority {
+                    name
+                    level
+                }
+            }
+        }
+    }
+}`,
+        variables: { transactionId: id },
+      }).catch(err => {
+        this.snackErr("Error Updating Transactions")
+        console.log(err)
+      })
+      return queryResponse.data.transaction
+    },
+
+    addTransaction(transaction) {
+      const bucketInfo = this.transactionBuckets(transaction)
+      const date = new Date(parseInt(transaction.date)).toISOString().substr(0, 10)
+      this.transactions.push({
+        id: transaction.id,
+        description: transaction.description,
+        dateFormatted: this.formattedDate(date),
+        dateISO: date,
+        category: transaction.category.name,
+        bucketString: bucketInfo.bucketString,
+        buckets: bucketInfo.buckets,
+        status: transaction.status.id,
+        statusEnum: this.transactionStatus(transaction),
+        amount: this.transactionAmount(transaction),
+        amountCurr: this.asCurrency(this.transactionAmount(transaction)),
+      })
     },
 
     updateTransactions() {
-      console.log("Loading Transactions")
       this.transactions = []
       for (const transaction of this.transactionsQuery) {
-        const bucketInfo = this.transactionBuckets(transaction)
-        const date = new Date(parseInt(transaction.date)).toISOString().substr(0, 10)
-        this.transactions.push({
-          id: transaction.id,
-          description: transaction.description,
-          dateFormatted: this.formattedDate(date),
-          dateISO: date,
-          category: transaction.category.name,
-          bucketString: bucketInfo.bucketString,
-          buckets: bucketInfo.buckets,
-          status: transaction.status.id,
-          statusEnum: this.transactionStatus(transaction),
-          amount: this.transactionAmount(transaction),
-          amountCurr: this.asCurrency(this.transactionAmount(transaction)),
-        })
+        this.addTransaction(transaction)
       }
       this.transactions = this.transactions.sort((a, b) => a.id - b.id)
       this.loading=false
+      console.log("Loaded " + this.transactions.length + " Transactions")
     },
 
     sleep(ms) {
@@ -268,6 +346,28 @@ export default {
       console.log("Confirmed Transaction: ", transaction)
       transaction.status = 3
       transaction.statusEnum = "ready"
+    },
+
+    async mergeSelectedTransactions() {
+      var ids = this.selected.map(transaction => transaction.id)
+      let response = await this.$apollo.mutate({
+        mutation: gql`mutation RootMutationType($ids: [Int!]!) {
+    mergeTransactions(ids: $ids)
+}`,
+        variables: { ids }
+      })
+      .then(this.snack("Merged " + ids.length + " transactions"))
+      .catch(err => {
+        console.log(err)
+        this.snackErr("Merge Failed")
+      })
+
+      let transaction_id = response.data.mergeTransactions
+      let transaction = await this.queryTransactionByID(transaction_id)
+      this.addTransaction(transaction)
+      this.transactions = this.transactions.filter(t => !ids.includes(t.id))
+      this.selected = []
+      console.log("Added Transaction: " + transaction.description)
     },
 
     modifiedDescription(transaction) {
@@ -482,6 +582,7 @@ export default {
       nextTransactionBucketID:  0,
 
       loading: true,
+      fab: false,
       transactionHeaders: [
         {text: "", value: "statusEnum"},
         {text: "Description", value: "description"},
@@ -495,13 +596,14 @@ export default {
         {text: "Bucket", value: "name"},
         {text: "Amount", value: "amount"},
       ],
-      filter: '',
+      searchText: '',
       selected: [],
       max64chars: v => v.length <= 64 || 'Input too long!',
       snackText: '',
       snackColor: '',
       snackOn: false,
       importDialog: false,
+      splitDialog: false,
       currentNet: 100,
       currentExpected: 100
     }

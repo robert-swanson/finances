@@ -293,6 +293,9 @@ type RootMutationType {
 
   """Edits the date of a transaction"""
   editDate(id: Int!, date: String!): Int
+
+  """Merges the transactions specified by the list of transaction IDs"""
+  mergeTransactions(ids: [Int!]!): Int
 }
 
 input UniqueName {
