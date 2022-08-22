@@ -1,14 +1,13 @@
-FROM node:9.11.1-alpine
+FROM node:14
 # install simple http server for serving static content
-WORKDIR .
+WORKDIR /app
 # copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
+COPY yarn.lock ./
 # install project dependencies
 RUN yarn install
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 # build app for production with minification
-RUN yarn ui-watch
-RUN yarn api-watch
-EXPOSE 8080
-EXPOSE 4000
+CMD ["yarn", "ui-watch"]
+#CMD ["yarn", "api-watch"]
