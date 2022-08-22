@@ -9,5 +9,5 @@ RUN yarn install
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 # build app for production with minification
-CMD ["yarn", "ui-watch"]
+CMD ["yarn", "ui-watch", "--port", "$PORT"]
 #CMD ["yarn", "api-watch"]
