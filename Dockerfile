@@ -10,4 +10,4 @@ RUN yarn install
 COPY . .
 # build app for production with minification
 CMD ["yarn", "ui-watch"]
-#CMD ["yarn", "api-watch"]
+CMD ["yarn", "api-watch"]
