@@ -45,8 +45,14 @@
           <span>Merge Transactions</span>
         </v-tooltip>
 
-        <split-transaction v-if="selected.length === 1"></split-transaction>
-
+        <v-tooltip right v-if="selected.length === 1">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn fab dark small color = "blue" @click="openSplitDialog" v-bind="attrs" v-on="on">
+              <v-icon>mdi-call-split</v-icon>
+            </v-btn>
+          </template>
+          <span>Split Transaction</span>
+        </v-tooltip>
 
         <v-tooltip right v-if="selected.length > 0">
           <template v-slot:activator="{ on, attrs }">
@@ -58,10 +64,13 @@
         </v-tooltip>
 
 
-
-
       </v-speed-dial>
-      <v-data-table
+
+<!--    splitDialogOn: false,-->
+<!--    splitDialogAttrs: false,-->
+    <split-transaction v-if="selected.length === 1" :dialog="splitDialogOn"></split-transaction>
+
+    <v-data-table
           :headers="transactionHeaders"
           :items="transactions"
           item-key="id"
@@ -101,7 +110,7 @@
         <template v-slot:item.description="props">
           <v-edit-dialog :return-value.sync="props.item.description" @save="modifiedDescription(props.item)"  >
             {{ props.item.description }}
-            <template v-slot:input> <v-text-field v-model="props.item.description" :rules="[max64chars]" label="Edit" single-line counter ></v-text-field> </template>
+            <template v-slot:input> <v-text-field v-model="props.item.description" @focus="$event.target.select()" :rules="[max64chars]" label="Edit" single-line counter ></v-text-field> </template>
           </v-edit-dialog>
         </template>
         <template v-slot:item.category="props">
@@ -199,6 +208,11 @@ export default {
   },
 
   methods: {
+    openSplitDialog() {
+      console.log("Clicked")
+      this.splitDialogOn = true
+    },
+
     //  ================ Parsing Transactions =================
     updateData() {
       this.updateTransactions()
@@ -369,6 +383,7 @@ export default {
       this.selected = []
       console.log("Added Transaction: " + transaction.description)
     },
+
 
     modifiedDescription(transaction) {
       console.log("Changed description to: ", transaction.description)
@@ -603,7 +618,8 @@ export default {
       snackColor: '',
       snackOn: false,
       importDialog: false,
-      splitDialog: false,
+      splitDialogOn: false,
+      splitDialogAttrs: false,
       currentNet: 100,
       currentExpected: 100
     }
