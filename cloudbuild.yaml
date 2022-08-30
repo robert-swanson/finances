@@ -1,16 +1,16 @@
 steps:
     # Docker Build UI
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/{PROJECT_ID}/ui-service', './ui']
+    args: ['build', '-t', 'gcr.io/personal-finances-359418/ui-service', './ui']
 
     # Docker Push UI
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/ui-service' ]
+    args: [ 'push', 'us-central1-docker.pkg.dev/personal-finances-359418/ui-service' ]
 
     # Entrypoint UI
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
-    args: [ 'compute', 'instances', 'create-with-container', 'ui-service', '--container-image', 'us-central1-docker.pkg.dev/${PROJECT_ID}/ui-service' ]
+    args: [ 'compute', 'instances', 'create-with-container', 'ui-service', '--container-image', 'us-central1-docker.pkg.dev/personal-finances-359418/ui-service' ]
     env:
       - 'CLOUDSDK_COMPUTE_REGION=us-central1'
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
