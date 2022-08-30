@@ -192,7 +192,7 @@ Model.knex(knex);
 const models = [ Account, AccountAlias, Bucket, BucketHolding, Category, CategoryRule, Month, MonthBudget, Priority, RuleColumn, RuleConstraint, Statement, StatementTransaction, Status, Transaction, TransactionBucket ]
 const graphQLSchema = graphQlBuilder().allModels(models).extendWithMutations(mutationType).build()
 
-fs.writeFile('graphql-schema.graphql', printSchema(graphQLSchema), err => {
+fs.writeFile('api/graphql-schema.graphql', printSchema(graphQLSchema), err => {
     if (err) {
         console.error(err)
         return
