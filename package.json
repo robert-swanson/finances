@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "ui-watch": "node_modules/.bin/vue-cli-service serve",
-    "build": "../node_modules/.bin/vue-cli-service build",
-    "lint": "../node_modules/.bin/vue-cli-service lint"
+    "build": "node_modules/.bin/vue-cli-service build",
+    "lint": "node_modules/.bin/vue-cli-service lint"
   },
   "dependencies": {
     "apollo-boost": "^0.4.9",

@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import UploadService from "../services/UploadFilesService";
+import UploadService from "../../../personal-finances-api/src/services/UploadFilesService";
 export default {
   name: "upload-files",
   data() {
