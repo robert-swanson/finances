@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "ui-watch": "vue-cli-service serve",
-    "api-watch": "nodemon graphql-server.js --ignore gen",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "ui-watch": "cd ui/ && ../node_modules/.bin/vue-cli-service serve",
+    "api-watch": "node_modules/.bin/nodemon api/graphql-server.js --ignore gen",
+    "build": "node_modules/.bin/vue-cli-service build",
+    "lint": "node_modules/.bin/vue-cli-service lint"
   },
   "dependencies": {
     "@hapi/hapi": "^18.4.0",
@@ -43,7 +43,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "nodemon": "^1.19.4",
-    "sass": "^1.19.0",
+    "sass": "~1.32.6",
     "sass-loader": "^8.0.0",
     "vue-cli-plugin-vuetify": "^2.0.2",
     "vue-template-compiler": "^2.6.10",

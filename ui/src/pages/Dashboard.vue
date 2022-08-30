@@ -196,8 +196,8 @@
 
 <script>
 import gql from 'graphql-tag'
-import UploadFiles from "@/components/UploadFiles";
-import SplitTransaction from "@/components/SplitTransaction";
+import UploadFiles from "../components/UploadFiles";
+import SplitTransaction from "../components/SplitTransaction";
 
 
 export default {

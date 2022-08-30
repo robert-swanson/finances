@@ -27,7 +27,7 @@ export default new Router({
     { name: "driver", path: "/driver", component: Driver },
 
     { name: "dashboard", path: "/", component: Dashboard },
-    { name: "dashboard", path: "/dashboard", component: Dashboard },
+    // { name: "dashboard", path: "/dashboard", component: Dashboard },
     { name: "transactions", path: "/transactions", component: Transactions },
     { name: "budgeting", path: "/budgeting", component: Budgeting },
     { name: "accounts", path: "/accounts", component: Accounts },

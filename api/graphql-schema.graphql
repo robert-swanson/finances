@@ -1,0 +1,304 @@
+schema {
+  query: Query
+  mutation: RootMutationType
+}
+
+type Query {
+  account(id: Int, name: String, active: Boolean, idEq: Int, nameEq: String, activeEq: Boolean, idGt: Int, nameGt: String, activeGt: Boolean, idGte: Int, nameGte: String, activeGte: Boolean, idLt: Int, nameLt: String, activeLt: Boolean, idLte: Int, nameLte: String, activeLte: Boolean, idLike: Int, nameLike: String, activeLike: Boolean, idIsNull: Boolean, nameIsNull: Boolean, activeIsNull: Boolean, idIn: [Int], nameIn: [String], activeIn: [Boolean], idNotIn: [Int], nameNotIn: [String], activeNotIn: [Boolean], idLikeNoCase: Int, nameLikeNoCase: String, activeLikeNoCase: Boolean, orderBy: AccountPropertiesEnum, orderByDesc: AccountPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): Account
+  accounts(id: Int, name: String, active: Boolean, idEq: Int, nameEq: String, activeEq: Boolean, idGt: Int, nameGt: String, activeGt: Boolean, idGte: Int, nameGte: String, activeGte: Boolean, idLt: Int, nameLt: String, activeLt: Boolean, idLte: Int, nameLte: String, activeLte: Boolean, idLike: Int, nameLike: String, activeLike: Boolean, idIsNull: Boolean, nameIsNull: Boolean, activeIsNull: Boolean, idIn: [Int], nameIn: [String], activeIn: [Boolean], idNotIn: [Int], nameNotIn: [String], activeNotIn: [Boolean], idLikeNoCase: Int, nameLikeNoCase: String, activeLikeNoCase: Boolean, orderBy: AccountPropertiesEnum, orderByDesc: AccountPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [Account]
+  accountAlias(id: Int, account_id: Int, alias: String, idEq: Int, account_idEq: Int, aliasEq: String, idGt: Int, account_idGt: Int, aliasGt: String, idGte: Int, account_idGte: Int, aliasGte: String, idLt: Int, account_idLt: Int, aliasLt: String, idLte: Int, account_idLte: Int, aliasLte: String, idLike: Int, account_idLike: Int, aliasLike: String, idIsNull: Boolean, account_idIsNull: Boolean, aliasIsNull: Boolean, idIn: [Int], account_idIn: [Int], aliasIn: [String], idNotIn: [Int], account_idNotIn: [Int], aliasNotIn: [String], idLikeNoCase: Int, account_idLikeNoCase: Int, aliasLikeNoCase: String, orderBy: AccountAliasPropertiesEnum, orderByDesc: AccountAliasPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): AccountAlias
+  accountAliass(id: Int, account_id: Int, alias: String, idEq: Int, account_idEq: Int, aliasEq: String, idGt: Int, account_idGt: Int, aliasGt: String, idGte: Int, account_idGte: Int, aliasGte: String, idLt: Int, account_idLt: Int, aliasLt: String, idLte: Int, account_idLte: Int, aliasLte: String, idLike: Int, account_idLike: Int, aliasLike: String, idIsNull: Boolean, account_idIsNull: Boolean, aliasIsNull: Boolean, idIn: [Int], account_idIn: [Int], aliasIn: [String], idNotIn: [Int], account_idNotIn: [Int], aliasNotIn: [String], idLikeNoCase: Int, account_idLikeNoCase: Int, aliasLikeNoCase: String, orderBy: AccountAliasPropertiesEnum, orderByDesc: AccountAliasPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [AccountAlias]
+  bucket(id: Int, name: String, priority_id: Int, idEq: Int, nameEq: String, priority_idEq: Int, idGt: Int, nameGt: String, priority_idGt: Int, idGte: Int, nameGte: String, priority_idGte: Int, idLt: Int, nameLt: String, priority_idLt: Int, idLte: Int, nameLte: String, priority_idLte: Int, idLike: Int, nameLike: String, priority_idLike: Int, idIsNull: Boolean, nameIsNull: Boolean, priority_idIsNull: Boolean, idIn: [Int], nameIn: [String], priority_idIn: [Int], idNotIn: [Int], nameNotIn: [String], priority_idNotIn: [Int], idLikeNoCase: Int, nameLikeNoCase: String, priority_idLikeNoCase: Int, orderBy: BucketPropertiesEnum, orderByDesc: BucketPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): Bucket
+  buckets(id: Int, name: String, priority_id: Int, idEq: Int, nameEq: String, priority_idEq: Int, idGt: Int, nameGt: String, priority_idGt: Int, idGte: Int, nameGte: String, priority_idGte: Int, idLt: Int, nameLt: String, priority_idLt: Int, idLte: Int, nameLte: String, priority_idLte: Int, idLike: Int, nameLike: String, priority_idLike: Int, idIsNull: Boolean, nameIsNull: Boolean, priority_idIsNull: Boolean, idIn: [Int], nameIn: [String], priority_idIn: [Int], idNotIn: [Int], nameNotIn: [String], priority_idNotIn: [Int], idLikeNoCase: Int, nameLikeNoCase: String, priority_idLikeNoCase: Int, orderBy: BucketPropertiesEnum, orderByDesc: BucketPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [Bucket]
+  bucketHolding(account_id: Int, bucket_id: Int, minimum_percent_holding: Float, account_idEq: Int, bucket_idEq: Int, minimum_percent_holdingEq: Float, account_idGt: Int, bucket_idGt: Int, minimum_percent_holdingGt: Float, account_idGte: Int, bucket_idGte: Int, minimum_percent_holdingGte: Float, account_idLt: Int, bucket_idLt: Int, minimum_percent_holdingLt: Float, account_idLte: Int, bucket_idLte: Int, minimum_percent_holdingLte: Float, account_idLike: Int, bucket_idLike: Int, minimum_percent_holdingLike: Float, account_idIsNull: Boolean, bucket_idIsNull: Boolean, minimum_percent_holdingIsNull: Boolean, account_idIn: [Int], bucket_idIn: [Int], minimum_percent_holdingIn: [Float], account_idNotIn: [Int], bucket_idNotIn: [Int], minimum_percent_holdingNotIn: [Float], account_idLikeNoCase: Int, bucket_idLikeNoCase: Int, minimum_percent_holdingLikeNoCase: Float, orderBy: BucketHoldingPropertiesEnum, orderByDesc: BucketHoldingPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): BucketHolding
+  bucketHoldings(account_id: Int, bucket_id: Int, minimum_percent_holding: Float, account_idEq: Int, bucket_idEq: Int, minimum_percent_holdingEq: Float, account_idGt: Int, bucket_idGt: Int, minimum_percent_holdingGt: Float, account_idGte: Int, bucket_idGte: Int, minimum_percent_holdingGte: Float, account_idLt: Int, bucket_idLt: Int, minimum_percent_holdingLt: Float, account_idLte: Int, bucket_idLte: Int, minimum_percent_holdingLte: Float, account_idLike: Int, bucket_idLike: Int, minimum_percent_holdingLike: Float, account_idIsNull: Boolean, bucket_idIsNull: Boolean, minimum_percent_holdingIsNull: Boolean, account_idIn: [Int], bucket_idIn: [Int], minimum_percent_holdingIn: [Float], account_idNotIn: [Int], bucket_idNotIn: [Int], minimum_percent_holdingNotIn: [Float], account_idLikeNoCase: Int, bucket_idLikeNoCase: Int, minimum_percent_holdingLikeNoCase: Float, orderBy: BucketHoldingPropertiesEnum, orderByDesc: BucketHoldingPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [BucketHolding]
+  category(id: Int, name: String, idEq: Int, nameEq: String, idGt: Int, nameGt: String, idGte: Int, nameGte: String, idLt: Int, nameLt: String, idLte: Int, nameLte: String, idLike: Int, nameLike: String, idIsNull: Boolean, nameIsNull: Boolean, idIn: [Int], nameIn: [String], idNotIn: [Int], nameNotIn: [String], idLikeNoCase: Int, nameLikeNoCase: String, orderBy: CategoryPropertiesEnum, orderByDesc: CategoryPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): Category
+  categorys(id: Int, name: String, idEq: Int, nameEq: String, idGt: Int, nameGt: String, idGte: Int, nameGte: String, idLt: Int, nameLt: String, idLte: Int, nameLte: String, idLike: Int, nameLike: String, idIsNull: Boolean, nameIsNull: Boolean, idIn: [Int], nameIn: [String], idNotIn: [Int], nameNotIn: [String], idLikeNoCase: Int, nameLikeNoCase: String, orderBy: CategoryPropertiesEnum, orderByDesc: CategoryPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [Category]
+  categoryRule(id: Int, category_id: Int, column_id: Int, constraint_id: Int, value: String, idEq: Int, category_idEq: Int, column_idEq: Int, constraint_idEq: Int, valueEq: String, idGt: Int, category_idGt: Int, column_idGt: Int, constraint_idGt: Int, valueGt: String, idGte: Int, category_idGte: Int, column_idGte: Int, constraint_idGte: Int, valueGte: String, idLt: Int, category_idLt: Int, column_idLt: Int, constraint_idLt: Int, valueLt: String, idLte: Int, category_idLte: Int, column_idLte: Int, constraint_idLte: Int, valueLte: String, idLike: Int, category_idLike: Int, column_idLike: Int, constraint_idLike: Int, valueLike: String, idIsNull: Boolean, category_idIsNull: Boolean, column_idIsNull: Boolean, constraint_idIsNull: Boolean, valueIsNull: Boolean, idIn: [Int], category_idIn: [Int], column_idIn: [Int], constraint_idIn: [Int], valueIn: [String], idNotIn: [Int], category_idNotIn: [Int], column_idNotIn: [Int], constraint_idNotIn: [Int], valueNotIn: [String], idLikeNoCase: Int, category_idLikeNoCase: Int, column_idLikeNoCase: Int, constraint_idLikeNoCase: Int, valueLikeNoCase: String, orderBy: CategoryRulePropertiesEnum, orderByDesc: CategoryRulePropertiesEnum, range: [Int], limit: [Int], offset: [Int]): CategoryRule
+  categoryRules(id: Int, category_id: Int, column_id: Int, constraint_id: Int, value: String, idEq: Int, category_idEq: Int, column_idEq: Int, constraint_idEq: Int, valueEq: String, idGt: Int, category_idGt: Int, column_idGt: Int, constraint_idGt: Int, valueGt: String, idGte: Int, category_idGte: Int, column_idGte: Int, constraint_idGte: Int, valueGte: String, idLt: Int, category_idLt: Int, column_idLt: Int, constraint_idLt: Int, valueLt: String, idLte: Int, category_idLte: Int, column_idLte: Int, constraint_idLte: Int, valueLte: String, idLike: Int, category_idLike: Int, column_idLike: Int, constraint_idLike: Int, valueLike: String, idIsNull: Boolean, category_idIsNull: Boolean, column_idIsNull: Boolean, constraint_idIsNull: Boolean, valueIsNull: Boolean, idIn: [Int], category_idIn: [Int], column_idIn: [Int], constraint_idIn: [Int], valueIn: [String], idNotIn: [Int], category_idNotIn: [Int], column_idNotIn: [Int], constraint_idNotIn: [Int], valueNotIn: [String], idLikeNoCase: Int, category_idLikeNoCase: Int, column_idLikeNoCase: Int, constraint_idLikeNoCase: Int, valueLikeNoCase: String, orderBy: CategoryRulePropertiesEnum, orderByDesc: CategoryRulePropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [CategoryRule]
+  month(id: Int, year: Int, month_num: Int, idEq: Int, yearEq: Int, month_numEq: Int, idGt: Int, yearGt: Int, month_numGt: Int, idGte: Int, yearGte: Int, month_numGte: Int, idLt: Int, yearLt: Int, month_numLt: Int, idLte: Int, yearLte: Int, month_numLte: Int, idLike: Int, yearLike: Int, month_numLike: Int, idIsNull: Boolean, yearIsNull: Boolean, month_numIsNull: Boolean, idIn: [Int], yearIn: [Int], month_numIn: [Int], idNotIn: [Int], yearNotIn: [Int], month_numNotIn: [Int], idLikeNoCase: Int, yearLikeNoCase: Int, month_numLikeNoCase: Int, orderBy: MonthPropertiesEnum, orderByDesc: MonthPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): Month
+  months(id: Int, year: Int, month_num: Int, idEq: Int, yearEq: Int, month_numEq: Int, idGt: Int, yearGt: Int, month_numGt: Int, idGte: Int, yearGte: Int, month_numGte: Int, idLt: Int, yearLt: Int, month_numLt: Int, idLte: Int, yearLte: Int, month_numLte: Int, idLike: Int, yearLike: Int, month_numLike: Int, idIsNull: Boolean, yearIsNull: Boolean, month_numIsNull: Boolean, idIn: [Int], yearIn: [Int], month_numIn: [Int], idNotIn: [Int], yearNotIn: [Int], month_numNotIn: [Int], idLikeNoCase: Int, yearLikeNoCase: Int, month_numLikeNoCase: Int, orderBy: MonthPropertiesEnum, orderByDesc: MonthPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [Month]
+  monthBudget(id: Int, bucket_id: Int, month_id: Int, constant: Float, percent: Float, idEq: Int, bucket_idEq: Int, month_idEq: Int, constantEq: Float, percentEq: Float, idGt: Int, bucket_idGt: Int, month_idGt: Int, constantGt: Float, percentGt: Float, idGte: Int, bucket_idGte: Int, month_idGte: Int, constantGte: Float, percentGte: Float, idLt: Int, bucket_idLt: Int, month_idLt: Int, constantLt: Float, percentLt: Float, idLte: Int, bucket_idLte: Int, month_idLte: Int, constantLte: Float, percentLte: Float, idLike: Int, bucket_idLike: Int, month_idLike: Int, constantLike: Float, percentLike: Float, idIsNull: Boolean, bucket_idIsNull: Boolean, month_idIsNull: Boolean, constantIsNull: Boolean, percentIsNull: Boolean, idIn: [Int], bucket_idIn: [Int], month_idIn: [Int], constantIn: [Float], percentIn: [Float], idNotIn: [Int], bucket_idNotIn: [Int], month_idNotIn: [Int], constantNotIn: [Float], percentNotIn: [Float], idLikeNoCase: Int, bucket_idLikeNoCase: Int, month_idLikeNoCase: Int, constantLikeNoCase: Float, percentLikeNoCase: Float, orderBy: MonthBudgetPropertiesEnum, orderByDesc: MonthBudgetPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): MonthBudget
+  monthBudgets(id: Int, bucket_id: Int, month_id: Int, constant: Float, percent: Float, idEq: Int, bucket_idEq: Int, month_idEq: Int, constantEq: Float, percentEq: Float, idGt: Int, bucket_idGt: Int, month_idGt: Int, constantGt: Float, percentGt: Float, idGte: Int, bucket_idGte: Int, month_idGte: Int, constantGte: Float, percentGte: Float, idLt: Int, bucket_idLt: Int, month_idLt: Int, constantLt: Float, percentLt: Float, idLte: Int, bucket_idLte: Int, month_idLte: Int, constantLte: Float, percentLte: Float, idLike: Int, bucket_idLike: Int, month_idLike: Int, constantLike: Float, percentLike: Float, idIsNull: Boolean, bucket_idIsNull: Boolean, month_idIsNull: Boolean, constantIsNull: Boolean, percentIsNull: Boolean, idIn: [Int], bucket_idIn: [Int], month_idIn: [Int], constantIn: [Float], percentIn: [Float], idNotIn: [Int], bucket_idNotIn: [Int], month_idNotIn: [Int], constantNotIn: [Float], percentNotIn: [Float], idLikeNoCase: Int, bucket_idLikeNoCase: Int, month_idLikeNoCase: Int, constantLikeNoCase: Float, percentLikeNoCase: Float, orderBy: MonthBudgetPropertiesEnum, orderByDesc: MonthBudgetPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [MonthBudget]
+  priority(id: Int, name: String, level: Int, idEq: Int, nameEq: String, levelEq: Int, idGt: Int, nameGt: String, levelGt: Int, idGte: Int, nameGte: String, levelGte: Int, idLt: Int, nameLt: String, levelLt: Int, idLte: Int, nameLte: String, levelLte: Int, idLike: Int, nameLike: String, levelLike: Int, idIsNull: Boolean, nameIsNull: Boolean, levelIsNull: Boolean, idIn: [Int], nameIn: [String], levelIn: [Int], idNotIn: [Int], nameNotIn: [String], levelNotIn: [Int], idLikeNoCase: Int, nameLikeNoCase: String, levelLikeNoCase: Int, orderBy: PriorityPropertiesEnum, orderByDesc: PriorityPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): Priority
+  prioritys(id: Int, name: String, level: Int, idEq: Int, nameEq: String, levelEq: Int, idGt: Int, nameGt: String, levelGt: Int, idGte: Int, nameGte: String, levelGte: Int, idLt: Int, nameLt: String, levelLt: Int, idLte: Int, nameLte: String, levelLte: Int, idLike: Int, nameLike: String, levelLike: Int, idIsNull: Boolean, nameIsNull: Boolean, levelIsNull: Boolean, idIn: [Int], nameIn: [String], levelIn: [Int], idNotIn: [Int], nameNotIn: [String], levelNotIn: [Int], idLikeNoCase: Int, nameLikeNoCase: String, levelLikeNoCase: Int, orderBy: PriorityPropertiesEnum, orderByDesc: PriorityPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [Priority]
+  ruleColumn(id: Int, name: String, idEq: Int, nameEq: String, idGt: Int, nameGt: String, idGte: Int, nameGte: String, idLt: Int, nameLt: String, idLte: Int, nameLte: String, idLike: Int, nameLike: String, idIsNull: Boolean, nameIsNull: Boolean, idIn: [Int], nameIn: [String], idNotIn: [Int], nameNotIn: [String], idLikeNoCase: Int, nameLikeNoCase: String, orderBy: RuleColumnPropertiesEnum, orderByDesc: RuleColumnPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): RuleColumn
+  ruleColumns(id: Int, name: String, idEq: Int, nameEq: String, idGt: Int, nameGt: String, idGte: Int, nameGte: String, idLt: Int, nameLt: String, idLte: Int, nameLte: String, idLike: Int, nameLike: String, idIsNull: Boolean, nameIsNull: Boolean, idIn: [Int], nameIn: [String], idNotIn: [Int], nameNotIn: [String], idLikeNoCase: Int, nameLikeNoCase: String, orderBy: RuleColumnPropertiesEnum, orderByDesc: RuleColumnPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [RuleColumn]
+  ruleConstraint(id: Int, name: String, idEq: Int, nameEq: String, idGt: Int, nameGt: String, idGte: Int, nameGte: String, idLt: Int, nameLt: String, idLte: Int, nameLte: String, idLike: Int, nameLike: String, idIsNull: Boolean, nameIsNull: Boolean, idIn: [Int], nameIn: [String], idNotIn: [Int], nameNotIn: [String], idLikeNoCase: Int, nameLikeNoCase: String, orderBy: RuleConstraintPropertiesEnum, orderByDesc: RuleConstraintPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): RuleConstraint
+  ruleConstraints(id: Int, name: String, idEq: Int, nameEq: String, idGt: Int, nameGt: String, idGte: Int, nameGte: String, idLt: Int, nameLt: String, idLte: Int, nameLte: String, idLike: Int, nameLike: String, idIsNull: Boolean, nameIsNull: Boolean, idIn: [Int], nameIn: [String], idNotIn: [Int], nameNotIn: [String], idLikeNoCase: Int, nameLikeNoCase: String, orderBy: RuleConstraintPropertiesEnum, orderByDesc: RuleConstraintPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [RuleConstraint]
+  statement(id: Int, description: String, account_id: Int, date: String, category: String, amount: Float, idEq: Int, descriptionEq: String, account_idEq: Int, dateEq: String, categoryEq: String, amountEq: Float, idGt: Int, descriptionGt: String, account_idGt: Int, dateGt: String, categoryGt: String, amountGt: Float, idGte: Int, descriptionGte: String, account_idGte: Int, dateGte: String, categoryGte: String, amountGte: Float, idLt: Int, descriptionLt: String, account_idLt: Int, dateLt: String, categoryLt: String, amountLt: Float, idLte: Int, descriptionLte: String, account_idLte: Int, dateLte: String, categoryLte: String, amountLte: Float, idLike: Int, descriptionLike: String, account_idLike: Int, dateLike: String, categoryLike: String, amountLike: Float, idIsNull: Boolean, descriptionIsNull: Boolean, account_idIsNull: Boolean, dateIsNull: Boolean, categoryIsNull: Boolean, amountIsNull: Boolean, idIn: [Int], descriptionIn: [String], account_idIn: [Int], dateIn: [String], categoryIn: [String], amountIn: [Float], idNotIn: [Int], descriptionNotIn: [String], account_idNotIn: [Int], dateNotIn: [String], categoryNotIn: [String], amountNotIn: [Float], idLikeNoCase: Int, descriptionLikeNoCase: String, account_idLikeNoCase: Int, dateLikeNoCase: String, categoryLikeNoCase: String, amountLikeNoCase: Float, orderBy: StatementPropertiesEnum, orderByDesc: StatementPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): Statement
+  statements(id: Int, description: String, account_id: Int, date: String, category: String, amount: Float, idEq: Int, descriptionEq: String, account_idEq: Int, dateEq: String, categoryEq: String, amountEq: Float, idGt: Int, descriptionGt: String, account_idGt: Int, dateGt: String, categoryGt: String, amountGt: Float, idGte: Int, descriptionGte: String, account_idGte: Int, dateGte: String, categoryGte: String, amountGte: Float, idLt: Int, descriptionLt: String, account_idLt: Int, dateLt: String, categoryLt: String, amountLt: Float, idLte: Int, descriptionLte: String, account_idLte: Int, dateLte: String, categoryLte: String, amountLte: Float, idLike: Int, descriptionLike: String, account_idLike: Int, dateLike: String, categoryLike: String, amountLike: Float, idIsNull: Boolean, descriptionIsNull: Boolean, account_idIsNull: Boolean, dateIsNull: Boolean, categoryIsNull: Boolean, amountIsNull: Boolean, idIn: [Int], descriptionIn: [String], account_idIn: [Int], dateIn: [String], categoryIn: [String], amountIn: [Float], idNotIn: [Int], descriptionNotIn: [String], account_idNotIn: [Int], dateNotIn: [String], categoryNotIn: [String], amountNotIn: [Float], idLikeNoCase: Int, descriptionLikeNoCase: String, account_idLikeNoCase: Int, dateLikeNoCase: String, categoryLikeNoCase: String, amountLikeNoCase: Float, orderBy: StatementPropertiesEnum, orderByDesc: StatementPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [Statement]
+  statementTransaction(id: Int, statement_id: Int, transaction_id: Int, note: String, partial_amount: Float, idEq: Int, statement_idEq: Int, transaction_idEq: Int, noteEq: String, partial_amountEq: Float, idGt: Int, statement_idGt: Int, transaction_idGt: Int, noteGt: String, partial_amountGt: Float, idGte: Int, statement_idGte: Int, transaction_idGte: Int, noteGte: String, partial_amountGte: Float, idLt: Int, statement_idLt: Int, transaction_idLt: Int, noteLt: String, partial_amountLt: Float, idLte: Int, statement_idLte: Int, transaction_idLte: Int, noteLte: String, partial_amountLte: Float, idLike: Int, statement_idLike: Int, transaction_idLike: Int, noteLike: String, partial_amountLike: Float, idIsNull: Boolean, statement_idIsNull: Boolean, transaction_idIsNull: Boolean, noteIsNull: Boolean, partial_amountIsNull: Boolean, idIn: [Int], statement_idIn: [Int], transaction_idIn: [Int], noteIn: [String], partial_amountIn: [Float], idNotIn: [Int], statement_idNotIn: [Int], transaction_idNotIn: [Int], noteNotIn: [String], partial_amountNotIn: [Float], idLikeNoCase: Int, statement_idLikeNoCase: Int, transaction_idLikeNoCase: Int, noteLikeNoCase: String, partial_amountLikeNoCase: Float, orderBy: StatementTransactionPropertiesEnum, orderByDesc: StatementTransactionPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): StatementTransaction
+  statementTransactions(id: Int, statement_id: Int, transaction_id: Int, note: String, partial_amount: Float, idEq: Int, statement_idEq: Int, transaction_idEq: Int, noteEq: String, partial_amountEq: Float, idGt: Int, statement_idGt: Int, transaction_idGt: Int, noteGt: String, partial_amountGt: Float, idGte: Int, statement_idGte: Int, transaction_idGte: Int, noteGte: String, partial_amountGte: Float, idLt: Int, statement_idLt: Int, transaction_idLt: Int, noteLt: String, partial_amountLt: Float, idLte: Int, statement_idLte: Int, transaction_idLte: Int, noteLte: String, partial_amountLte: Float, idLike: Int, statement_idLike: Int, transaction_idLike: Int, noteLike: String, partial_amountLike: Float, idIsNull: Boolean, statement_idIsNull: Boolean, transaction_idIsNull: Boolean, noteIsNull: Boolean, partial_amountIsNull: Boolean, idIn: [Int], statement_idIn: [Int], transaction_idIn: [Int], noteIn: [String], partial_amountIn: [Float], idNotIn: [Int], statement_idNotIn: [Int], transaction_idNotIn: [Int], noteNotIn: [String], partial_amountNotIn: [Float], idLikeNoCase: Int, statement_idLikeNoCase: Int, transaction_idLikeNoCase: Int, noteLikeNoCase: String, partial_amountLikeNoCase: Float, orderBy: StatementTransactionPropertiesEnum, orderByDesc: StatementTransactionPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [StatementTransaction]
+  status(id: Int, description: String, idEq: Int, descriptionEq: String, idGt: Int, descriptionGt: String, idGte: Int, descriptionGte: String, idLt: Int, descriptionLt: String, idLte: Int, descriptionLte: String, idLike: Int, descriptionLike: String, idIsNull: Boolean, descriptionIsNull: Boolean, idIn: [Int], descriptionIn: [String], idNotIn: [Int], descriptionNotIn: [String], idLikeNoCase: Int, descriptionLikeNoCase: String, orderBy: StatusPropertiesEnum, orderByDesc: StatusPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): Status
+  statuss(id: Int, description: String, idEq: Int, descriptionEq: String, idGt: Int, descriptionGt: String, idGte: Int, descriptionGte: String, idLt: Int, descriptionLt: String, idLte: Int, descriptionLte: String, idLike: Int, descriptionLike: String, idIsNull: Boolean, descriptionIsNull: Boolean, idIn: [Int], descriptionIn: [String], idNotIn: [Int], descriptionNotIn: [String], idLikeNoCase: Int, descriptionLikeNoCase: String, orderBy: StatusPropertiesEnum, orderByDesc: StatusPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [Status]
+  transaction(id: Int, status_id: Int, category_id: Int, description: String, date: String, idEq: Int, status_idEq: Int, category_idEq: Int, descriptionEq: String, dateEq: String, idGt: Int, status_idGt: Int, category_idGt: Int, descriptionGt: String, dateGt: String, idGte: Int, status_idGte: Int, category_idGte: Int, descriptionGte: String, dateGte: String, idLt: Int, status_idLt: Int, category_idLt: Int, descriptionLt: String, dateLt: String, idLte: Int, status_idLte: Int, category_idLte: Int, descriptionLte: String, dateLte: String, idLike: Int, status_idLike: Int, category_idLike: Int, descriptionLike: String, dateLike: String, idIsNull: Boolean, status_idIsNull: Boolean, category_idIsNull: Boolean, descriptionIsNull: Boolean, dateIsNull: Boolean, idIn: [Int], status_idIn: [Int], category_idIn: [Int], descriptionIn: [String], dateIn: [String], idNotIn: [Int], status_idNotIn: [Int], category_idNotIn: [Int], descriptionNotIn: [String], dateNotIn: [String], idLikeNoCase: Int, status_idLikeNoCase: Int, category_idLikeNoCase: Int, descriptionLikeNoCase: String, dateLikeNoCase: String, orderBy: TransactionPropertiesEnum, orderByDesc: TransactionPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): Transaction
+  transactions(id: Int, status_id: Int, category_id: Int, description: String, date: String, idEq: Int, status_idEq: Int, category_idEq: Int, descriptionEq: String, dateEq: String, idGt: Int, status_idGt: Int, category_idGt: Int, descriptionGt: String, dateGt: String, idGte: Int, status_idGte: Int, category_idGte: Int, descriptionGte: String, dateGte: String, idLt: Int, status_idLt: Int, category_idLt: Int, descriptionLt: String, dateLt: String, idLte: Int, status_idLte: Int, category_idLte: Int, descriptionLte: String, dateLte: String, idLike: Int, status_idLike: Int, category_idLike: Int, descriptionLike: String, dateLike: String, idIsNull: Boolean, status_idIsNull: Boolean, category_idIsNull: Boolean, descriptionIsNull: Boolean, dateIsNull: Boolean, idIn: [Int], status_idIn: [Int], category_idIn: [Int], descriptionIn: [String], dateIn: [String], idNotIn: [Int], status_idNotIn: [Int], category_idNotIn: [Int], descriptionNotIn: [String], dateNotIn: [String], idLikeNoCase: Int, status_idLikeNoCase: Int, category_idLikeNoCase: Int, descriptionLikeNoCase: String, dateLikeNoCase: String, orderBy: TransactionPropertiesEnum, orderByDesc: TransactionPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [Transaction]
+  transactionBucket(transaction_id: Int, bucket_id: Int, bucket_amount: Float, transaction_idEq: Int, bucket_idEq: Int, bucket_amountEq: Float, transaction_idGt: Int, bucket_idGt: Int, bucket_amountGt: Float, transaction_idGte: Int, bucket_idGte: Int, bucket_amountGte: Float, transaction_idLt: Int, bucket_idLt: Int, bucket_amountLt: Float, transaction_idLte: Int, bucket_idLte: Int, bucket_amountLte: Float, transaction_idLike: Int, bucket_idLike: Int, bucket_amountLike: Float, transaction_idIsNull: Boolean, bucket_idIsNull: Boolean, bucket_amountIsNull: Boolean, transaction_idIn: [Int], bucket_idIn: [Int], bucket_amountIn: [Float], transaction_idNotIn: [Int], bucket_idNotIn: [Int], bucket_amountNotIn: [Float], transaction_idLikeNoCase: Int, bucket_idLikeNoCase: Int, bucket_amountLikeNoCase: Float, orderBy: TransactionBucketPropertiesEnum, orderByDesc: TransactionBucketPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): TransactionBucket
+  transactionBuckets(transaction_id: Int, bucket_id: Int, bucket_amount: Float, transaction_idEq: Int, bucket_idEq: Int, bucket_amountEq: Float, transaction_idGt: Int, bucket_idGt: Int, bucket_amountGt: Float, transaction_idGte: Int, bucket_idGte: Int, bucket_amountGte: Float, transaction_idLt: Int, bucket_idLt: Int, bucket_amountLt: Float, transaction_idLte: Int, bucket_idLte: Int, bucket_amountLte: Float, transaction_idLike: Int, bucket_idLike: Int, bucket_amountLike: Float, transaction_idIsNull: Boolean, bucket_idIsNull: Boolean, bucket_amountIsNull: Boolean, transaction_idIn: [Int], bucket_idIn: [Int], bucket_amountIn: [Float], transaction_idNotIn: [Int], bucket_idNotIn: [Int], bucket_amountNotIn: [Float], transaction_idLikeNoCase: Int, bucket_idLikeNoCase: Int, bucket_amountLikeNoCase: Float, orderBy: TransactionBucketPropertiesEnum, orderByDesc: TransactionBucketPropertiesEnum, range: [Int], limit: [Int], offset: [Int]): [TransactionBucket]
+}
+
+type Account {
+  id: Int
+  name: String
+  active: Boolean
+  statement(id: Int, description: String, account_id: Int, date: String, category: String, amount: Float, idEq: Int, descriptionEq: String, account_idEq: Int, dateEq: String, categoryEq: String, amountEq: Float, idGt: Int, descriptionGt: String, account_idGt: Int, dateGt: String, categoryGt: String, amountGt: Float, idGte: Int, descriptionGte: String, account_idGte: Int, dateGte: String, categoryGte: String, amountGte: Float, idLt: Int, descriptionLt: String, account_idLt: Int, dateLt: String, categoryLt: String, amountLt: Float, idLte: Int, descriptionLte: String, account_idLte: Int, dateLte: String, categoryLte: String, amountLte: Float, idLike: Int, descriptionLike: String, account_idLike: Int, dateLike: String, categoryLike: String, amountLike: Float, idIsNull: Boolean, descriptionIsNull: Boolean, account_idIsNull: Boolean, dateIsNull: Boolean, categoryIsNull: Boolean, amountIsNull: Boolean, idIn: [Int], descriptionIn: [String], account_idIn: [Int], dateIn: [String], categoryIn: [String], amountIn: [Float], idNotIn: [Int], descriptionNotIn: [String], account_idNotIn: [Int], dateNotIn: [String], categoryNotIn: [String], amountNotIn: [Float], idLikeNoCase: Int, descriptionLikeNoCase: String, account_idLikeNoCase: Int, dateLikeNoCase: String, categoryLikeNoCase: String, amountLikeNoCase: Float, orderBy: StatementPropertiesEnum, orderByDesc: StatementPropertiesEnum, limit: [Int], offset: [Int]): [Statement]
+  accountAlias(id: Int, account_id: Int, alias: String, idEq: Int, account_idEq: Int, aliasEq: String, idGt: Int, account_idGt: Int, aliasGt: String, idGte: Int, account_idGte: Int, aliasGte: String, idLt: Int, account_idLt: Int, aliasLt: String, idLte: Int, account_idLte: Int, aliasLte: String, idLike: Int, account_idLike: Int, aliasLike: String, idIsNull: Boolean, account_idIsNull: Boolean, aliasIsNull: Boolean, idIn: [Int], account_idIn: [Int], aliasIn: [String], idNotIn: [Int], account_idNotIn: [Int], aliasNotIn: [String], idLikeNoCase: Int, account_idLikeNoCase: Int, aliasLikeNoCase: String, orderBy: AccountAliasPropertiesEnum, orderByDesc: AccountAliasPropertiesEnum, limit: [Int], offset: [Int]): AccountAlias
+  bucketHolding(account_id: Int, bucket_id: Int, minimum_percent_holding: Float, account_idEq: Int, bucket_idEq: Int, minimum_percent_holdingEq: Float, account_idGt: Int, bucket_idGt: Int, minimum_percent_holdingGt: Float, account_idGte: Int, bucket_idGte: Int, minimum_percent_holdingGte: Float, account_idLt: Int, bucket_idLt: Int, minimum_percent_holdingLt: Float, account_idLte: Int, bucket_idLte: Int, minimum_percent_holdingLte: Float, account_idLike: Int, bucket_idLike: Int, minimum_percent_holdingLike: Float, account_idIsNull: Boolean, bucket_idIsNull: Boolean, minimum_percent_holdingIsNull: Boolean, account_idIn: [Int], bucket_idIn: [Int], minimum_percent_holdingIn: [Float], account_idNotIn: [Int], bucket_idNotIn: [Int], minimum_percent_holdingNotIn: [Float], account_idLikeNoCase: Int, bucket_idLikeNoCase: Int, minimum_percent_holdingLikeNoCase: Float, orderBy: BucketHoldingPropertiesEnum, orderByDesc: BucketHoldingPropertiesEnum, limit: [Int], offset: [Int]): [BucketHolding]
+  bucketsHeld(id: Int, name: String, priority_id: Int, idEq: Int, nameEq: String, priority_idEq: Int, idGt: Int, nameGt: String, priority_idGt: Int, idGte: Int, nameGte: String, priority_idGte: Int, idLt: Int, nameLt: String, priority_idLt: Int, idLte: Int, nameLte: String, priority_idLte: Int, idLike: Int, nameLike: String, priority_idLike: Int, idIsNull: Boolean, nameIsNull: Boolean, priority_idIsNull: Boolean, idIn: [Int], nameIn: [String], priority_idIn: [Int], idNotIn: [Int], nameNotIn: [String], priority_idNotIn: [Int], idLikeNoCase: Int, nameLikeNoCase: String, priority_idLikeNoCase: Int, orderBy: BucketPropertiesEnum, orderByDesc: BucketPropertiesEnum, limit: [Int], offset: [Int]): [Bucket]
+}
+
+type Statement {
+  id: Int
+  description: String
+  account_id: Int
+  date: String
+  category: String
+  amount: Float
+  account(id: Int, name: String, active: Boolean, idEq: Int, nameEq: String, activeEq: Boolean, idGt: Int, nameGt: String, activeGt: Boolean, idGte: Int, nameGte: String, activeGte: Boolean, idLt: Int, nameLt: String, activeLt: Boolean, idLte: Int, nameLte: String, activeLte: Boolean, idLike: Int, nameLike: String, activeLike: Boolean, idIsNull: Boolean, nameIsNull: Boolean, activeIsNull: Boolean, idIn: [Int], nameIn: [String], activeIn: [Boolean], idNotIn: [Int], nameNotIn: [String], activeNotIn: [Boolean], idLikeNoCase: Int, nameLikeNoCase: String, activeLikeNoCase: Boolean, orderBy: AccountPropertiesEnum, orderByDesc: AccountPropertiesEnum, limit: [Int], offset: [Int]): Account
+  statementTransaction(id: Int, statement_id: Int, transaction_id: Int, note: String, partial_amount: Float, idEq: Int, statement_idEq: Int, transaction_idEq: Int, noteEq: String, partial_amountEq: Float, idGt: Int, statement_idGt: Int, transaction_idGt: Int, noteGt: String, partial_amountGt: Float, idGte: Int, statement_idGte: Int, transaction_idGte: Int, noteGte: String, partial_amountGte: Float, idLt: Int, statement_idLt: Int, transaction_idLt: Int, noteLt: String, partial_amountLt: Float, idLte: Int, statement_idLte: Int, transaction_idLte: Int, noteLte: String, partial_amountLte: Float, idLike: Int, statement_idLike: Int, transaction_idLike: Int, noteLike: String, partial_amountLike: Float, idIsNull: Boolean, statement_idIsNull: Boolean, transaction_idIsNull: Boolean, noteIsNull: Boolean, partial_amountIsNull: Boolean, idIn: [Int], statement_idIn: [Int], transaction_idIn: [Int], noteIn: [String], partial_amountIn: [Float], idNotIn: [Int], statement_idNotIn: [Int], transaction_idNotIn: [Int], noteNotIn: [String], partial_amountNotIn: [Float], idLikeNoCase: Int, statement_idLikeNoCase: Int, transaction_idLikeNoCase: Int, noteLikeNoCase: String, partial_amountLikeNoCase: Float, orderBy: StatementTransactionPropertiesEnum, orderByDesc: StatementTransactionPropertiesEnum, limit: [Int], offset: [Int]): [StatementTransaction]
+  transaction(id: Int, status_id: Int, category_id: Int, description: String, date: String, idEq: Int, status_idEq: Int, category_idEq: Int, descriptionEq: String, dateEq: String, idGt: Int, status_idGt: Int, category_idGt: Int, descriptionGt: String, dateGt: String, idGte: Int, status_idGte: Int, category_idGte: Int, descriptionGte: String, dateGte: String, idLt: Int, status_idLt: Int, category_idLt: Int, descriptionLt: String, dateLt: String, idLte: Int, status_idLte: Int, category_idLte: Int, descriptionLte: String, dateLte: String, idLike: Int, status_idLike: Int, category_idLike: Int, descriptionLike: String, dateLike: String, idIsNull: Boolean, status_idIsNull: Boolean, category_idIsNull: Boolean, descriptionIsNull: Boolean, dateIsNull: Boolean, idIn: [Int], status_idIn: [Int], category_idIn: [Int], descriptionIn: [String], dateIn: [String], idNotIn: [Int], status_idNotIn: [Int], category_idNotIn: [Int], descriptionNotIn: [String], dateNotIn: [String], idLikeNoCase: Int, status_idLikeNoCase: Int, category_idLikeNoCase: Int, descriptionLikeNoCase: String, dateLikeNoCase: String, orderBy: TransactionPropertiesEnum, orderByDesc: TransactionPropertiesEnum, limit: [Int], offset: [Int]): [Transaction]
+}
+
+enum AccountPropertiesEnum {
+  id
+  name
+  active
+}
+
+type StatementTransaction {
+  id: Int
+  statement_id: Int
+  transaction_id: Int
+  note: String
+  partial_amount: Float
+  statement(id: Int, description: String, account_id: Int, date: String, category: String, amount: Float, idEq: Int, descriptionEq: String, account_idEq: Int, dateEq: String, categoryEq: String, amountEq: Float, idGt: Int, descriptionGt: String, account_idGt: Int, dateGt: String, categoryGt: String, amountGt: Float, idGte: Int, descriptionGte: String, account_idGte: Int, dateGte: String, categoryGte: String, amountGte: Float, idLt: Int, descriptionLt: String, account_idLt: Int, dateLt: String, categoryLt: String, amountLt: Float, idLte: Int, descriptionLte: String, account_idLte: Int, dateLte: String, categoryLte: String, amountLte: Float, idLike: Int, descriptionLike: String, account_idLike: Int, dateLike: String, categoryLike: String, amountLike: Float, idIsNull: Boolean, descriptionIsNull: Boolean, account_idIsNull: Boolean, dateIsNull: Boolean, categoryIsNull: Boolean, amountIsNull: Boolean, idIn: [Int], descriptionIn: [String], account_idIn: [Int], dateIn: [String], categoryIn: [String], amountIn: [Float], idNotIn: [Int], descriptionNotIn: [String], account_idNotIn: [Int], dateNotIn: [String], categoryNotIn: [String], amountNotIn: [Float], idLikeNoCase: Int, descriptionLikeNoCase: String, account_idLikeNoCase: Int, dateLikeNoCase: String, categoryLikeNoCase: String, amountLikeNoCase: Float, orderBy: StatementPropertiesEnum, orderByDesc: StatementPropertiesEnum, limit: [Int], offset: [Int]): Statement
+  transaction(id: Int, status_id: Int, category_id: Int, description: String, date: String, idEq: Int, status_idEq: Int, category_idEq: Int, descriptionEq: String, dateEq: String, idGt: Int, status_idGt: Int, category_idGt: Int, descriptionGt: String, dateGt: String, idGte: Int, status_idGte: Int, category_idGte: Int, descriptionGte: String, dateGte: String, idLt: Int, status_idLt: Int, category_idLt: Int, descriptionLt: String, dateLt: String, idLte: Int, status_idLte: Int, category_idLte: Int, descriptionLte: String, dateLte: String, idLike: Int, status_idLike: Int, category_idLike: Int, descriptionLike: String, dateLike: String, idIsNull: Boolean, status_idIsNull: Boolean, category_idIsNull: Boolean, descriptionIsNull: Boolean, dateIsNull: Boolean, idIn: [Int], status_idIn: [Int], category_idIn: [Int], descriptionIn: [String], dateIn: [String], idNotIn: [Int], status_idNotIn: [Int], category_idNotIn: [Int], descriptionNotIn: [String], dateNotIn: [String], idLikeNoCase: Int, status_idLikeNoCase: Int, category_idLikeNoCase: Int, descriptionLikeNoCase: String, dateLikeNoCase: String, orderBy: TransactionPropertiesEnum, orderByDesc: TransactionPropertiesEnum, limit: [Int], offset: [Int]): Transaction
+}
+
+enum StatementPropertiesEnum {
+  id
+  description
+  account_id
+  date
+  category
+  amount
+}
+
+type Transaction {
+  id: Int
+  status_id: Int
+  category_id: Int
+  description: String
+  date: String
+  statementTransaction(id: Int, statement_id: Int, transaction_id: Int, note: String, partial_amount: Float, idEq: Int, statement_idEq: Int, transaction_idEq: Int, noteEq: String, partial_amountEq: Float, idGt: Int, statement_idGt: Int, transaction_idGt: Int, noteGt: String, partial_amountGt: Float, idGte: Int, statement_idGte: Int, transaction_idGte: Int, noteGte: String, partial_amountGte: Float, idLt: Int, statement_idLt: Int, transaction_idLt: Int, noteLt: String, partial_amountLt: Float, idLte: Int, statement_idLte: Int, transaction_idLte: Int, noteLte: String, partial_amountLte: Float, idLike: Int, statement_idLike: Int, transaction_idLike: Int, noteLike: String, partial_amountLike: Float, idIsNull: Boolean, statement_idIsNull: Boolean, transaction_idIsNull: Boolean, noteIsNull: Boolean, partial_amountIsNull: Boolean, idIn: [Int], statement_idIn: [Int], transaction_idIn: [Int], noteIn: [String], partial_amountIn: [Float], idNotIn: [Int], statement_idNotIn: [Int], transaction_idNotIn: [Int], noteNotIn: [String], partial_amountNotIn: [Float], idLikeNoCase: Int, statement_idLikeNoCase: Int, transaction_idLikeNoCase: Int, noteLikeNoCase: String, partial_amountLikeNoCase: Float, orderBy: StatementTransactionPropertiesEnum, orderByDesc: StatementTransactionPropertiesEnum, limit: [Int], offset: [Int]): [StatementTransaction]
+  statement(id: Int, description: String, account_id: Int, date: String, category: String, amount: Float, idEq: Int, descriptionEq: String, account_idEq: Int, dateEq: String, categoryEq: String, amountEq: Float, idGt: Int, descriptionGt: String, account_idGt: Int, dateGt: String, categoryGt: String, amountGt: Float, idGte: Int, descriptionGte: String, account_idGte: Int, dateGte: String, categoryGte: String, amountGte: Float, idLt: Int, descriptionLt: String, account_idLt: Int, dateLt: String, categoryLt: String, amountLt: Float, idLte: Int, descriptionLte: String, account_idLte: Int, dateLte: String, categoryLte: String, amountLte: Float, idLike: Int, descriptionLike: String, account_idLike: Int, dateLike: String, categoryLike: String, amountLike: Float, idIsNull: Boolean, descriptionIsNull: Boolean, account_idIsNull: Boolean, dateIsNull: Boolean, categoryIsNull: Boolean, amountIsNull: Boolean, idIn: [Int], descriptionIn: [String], account_idIn: [Int], dateIn: [String], categoryIn: [String], amountIn: [Float], idNotIn: [Int], descriptionNotIn: [String], account_idNotIn: [Int], dateNotIn: [String], categoryNotIn: [String], amountNotIn: [Float], idLikeNoCase: Int, descriptionLikeNoCase: String, account_idLikeNoCase: Int, dateLikeNoCase: String, categoryLikeNoCase: String, amountLikeNoCase: Float, orderBy: StatementPropertiesEnum, orderByDesc: StatementPropertiesEnum, limit: [Int], offset: [Int]): [Statement]
+  status(id: Int, description: String, idEq: Int, descriptionEq: String, idGt: Int, descriptionGt: String, idGte: Int, descriptionGte: String, idLt: Int, descriptionLt: String, idLte: Int, descriptionLte: String, idLike: Int, descriptionLike: String, idIsNull: Boolean, descriptionIsNull: Boolean, idIn: [Int], descriptionIn: [String], idNotIn: [Int], descriptionNotIn: [String], idLikeNoCase: Int, descriptionLikeNoCase: String, orderBy: StatusPropertiesEnum, orderByDesc: StatusPropertiesEnum, limit: [Int], offset: [Int]): Status
+  transactionBucket(transaction_id: Int, bucket_id: Int, bucket_amount: Float, transaction_idEq: Int, bucket_idEq: Int, bucket_amountEq: Float, transaction_idGt: Int, bucket_idGt: Int, bucket_amountGt: Float, transaction_idGte: Int, bucket_idGte: Int, bucket_amountGte: Float, transaction_idLt: Int, bucket_idLt: Int, bucket_amountLt: Float, transaction_idLte: Int, bucket_idLte: Int, bucket_amountLte: Float, transaction_idLike: Int, bucket_idLike: Int, bucket_amountLike: Float, transaction_idIsNull: Boolean, bucket_idIsNull: Boolean, bucket_amountIsNull: Boolean, transaction_idIn: [Int], bucket_idIn: [Int], bucket_amountIn: [Float], transaction_idNotIn: [Int], bucket_idNotIn: [Int], bucket_amountNotIn: [Float], transaction_idLikeNoCase: Int, bucket_idLikeNoCase: Int, bucket_amountLikeNoCase: Float, orderBy: TransactionBucketPropertiesEnum, orderByDesc: TransactionBucketPropertiesEnum, limit: [Int], offset: [Int]): [TransactionBucket]
+  buckets(id: Int, name: String, priority_id: Int, idEq: Int, nameEq: String, priority_idEq: Int, idGt: Int, nameGt: String, priority_idGt: Int, idGte: Int, nameGte: String, priority_idGte: Int, idLt: Int, nameLt: String, priority_idLt: Int, idLte: Int, nameLte: String, priority_idLte: Int, idLike: Int, nameLike: String, priority_idLike: Int, idIsNull: Boolean, nameIsNull: Boolean, priority_idIsNull: Boolean, idIn: [Int], nameIn: [String], priority_idIn: [Int], idNotIn: [Int], nameNotIn: [String], priority_idNotIn: [Int], idLikeNoCase: Int, nameLikeNoCase: String, priority_idLikeNoCase: Int, orderBy: BucketPropertiesEnum, orderByDesc: BucketPropertiesEnum, limit: [Int], offset: [Int]): [Bucket]
+  category(id: Int, name: String, idEq: Int, nameEq: String, idGt: Int, nameGt: String, idGte: Int, nameGte: String, idLt: Int, nameLt: String, idLte: Int, nameLte: String, idLike: Int, nameLike: String, idIsNull: Boolean, nameIsNull: Boolean, idIn: [Int], nameIn: [String], idNotIn: [Int], nameNotIn: [String], idLikeNoCase: Int, nameLikeNoCase: String, orderBy: CategoryPropertiesEnum, orderByDesc: CategoryPropertiesEnum, limit: [Int], offset: [Int]): Category
+}
+
+enum StatementTransactionPropertiesEnum {
+  id
+  statement_id
+  transaction_id
+  note
+  partial_amount
+}
+
+type Status {
+  id: Int
+  description: String
+}
+
+enum StatusPropertiesEnum {
+  id
+  description
+}
+
+type TransactionBucket {
+  transaction_id: Int
+  bucket_id: Int
+  bucket_amount: Float
+  bucket(id: Int, name: String, priority_id: Int, idEq: Int, nameEq: String, priority_idEq: Int, idGt: Int, nameGt: String, priority_idGt: Int, idGte: Int, nameGte: String, priority_idGte: Int, idLt: Int, nameLt: String, priority_idLt: Int, idLte: Int, nameLte: String, priority_idLte: Int, idLike: Int, nameLike: String, priority_idLike: Int, idIsNull: Boolean, nameIsNull: Boolean, priority_idIsNull: Boolean, idIn: [Int], nameIn: [String], priority_idIn: [Int], idNotIn: [Int], nameNotIn: [String], priority_idNotIn: [Int], idLikeNoCase: Int, nameLikeNoCase: String, priority_idLikeNoCase: Int, orderBy: BucketPropertiesEnum, orderByDesc: BucketPropertiesEnum, limit: [Int], offset: [Int]): Bucket
+}
+
+type Bucket {
+  id: Int
+  name: String
+  priority_id: Int
+  transactionBucket(transaction_id: Int, bucket_id: Int, bucket_amount: Float, transaction_idEq: Int, bucket_idEq: Int, bucket_amountEq: Float, transaction_idGt: Int, bucket_idGt: Int, bucket_amountGt: Float, transaction_idGte: Int, bucket_idGte: Int, bucket_amountGte: Float, transaction_idLt: Int, bucket_idLt: Int, bucket_amountLt: Float, transaction_idLte: Int, bucket_idLte: Int, bucket_amountLte: Float, transaction_idLike: Int, bucket_idLike: Int, bucket_amountLike: Float, transaction_idIsNull: Boolean, bucket_idIsNull: Boolean, bucket_amountIsNull: Boolean, transaction_idIn: [Int], bucket_idIn: [Int], bucket_amountIn: [Float], transaction_idNotIn: [Int], bucket_idNotIn: [Int], bucket_amountNotIn: [Float], transaction_idLikeNoCase: Int, bucket_idLikeNoCase: Int, bucket_amountLikeNoCase: Float, orderBy: TransactionBucketPropertiesEnum, orderByDesc: TransactionBucketPropertiesEnum, limit: [Int], offset: [Int]): [TransactionBucket]
+  transaction(id: Int, status_id: Int, category_id: Int, description: String, date: String, idEq: Int, status_idEq: Int, category_idEq: Int, descriptionEq: String, dateEq: String, idGt: Int, status_idGt: Int, category_idGt: Int, descriptionGt: String, dateGt: String, idGte: Int, status_idGte: Int, category_idGte: Int, descriptionGte: String, dateGte: String, idLt: Int, status_idLt: Int, category_idLt: Int, descriptionLt: String, dateLt: String, idLte: Int, status_idLte: Int, category_idLte: Int, descriptionLte: String, dateLte: String, idLike: Int, status_idLike: Int, category_idLike: Int, descriptionLike: String, dateLike: String, idIsNull: Boolean, status_idIsNull: Boolean, category_idIsNull: Boolean, descriptionIsNull: Boolean, dateIsNull: Boolean, idIn: [Int], status_idIn: [Int], category_idIn: [Int], descriptionIn: [String], dateIn: [String], idNotIn: [Int], status_idNotIn: [Int], category_idNotIn: [Int], descriptionNotIn: [String], dateNotIn: [String], idLikeNoCase: Int, status_idLikeNoCase: Int, category_idLikeNoCase: Int, descriptionLikeNoCase: String, dateLikeNoCase: String, orderBy: TransactionPropertiesEnum, orderByDesc: TransactionPropertiesEnum, limit: [Int], offset: [Int]): [Transaction]
+  bucketHolding(account_id: Int, bucket_id: Int, minimum_percent_holding: Float, account_idEq: Int, bucket_idEq: Int, minimum_percent_holdingEq: Float, account_idGt: Int, bucket_idGt: Int, minimum_percent_holdingGt: Float, account_idGte: Int, bucket_idGte: Int, minimum_percent_holdingGte: Float, account_idLt: Int, bucket_idLt: Int, minimum_percent_holdingLt: Float, account_idLte: Int, bucket_idLte: Int, minimum_percent_holdingLte: Float, account_idLike: Int, bucket_idLike: Int, minimum_percent_holdingLike: Float, account_idIsNull: Boolean, bucket_idIsNull: Boolean, minimum_percent_holdingIsNull: Boolean, account_idIn: [Int], bucket_idIn: [Int], minimum_percent_holdingIn: [Float], account_idNotIn: [Int], bucket_idNotIn: [Int], minimum_percent_holdingNotIn: [Float], account_idLikeNoCase: Int, bucket_idLikeNoCase: Int, minimum_percent_holdingLikeNoCase: Float, orderBy: BucketHoldingPropertiesEnum, orderByDesc: BucketHoldingPropertiesEnum, limit: [Int], offset: [Int]): [BucketHolding]
+  bucketHoldingAccounts(id: Int, name: String, active: Boolean, idEq: Int, nameEq: String, activeEq: Boolean, idGt: Int, nameGt: String, activeGt: Boolean, idGte: Int, nameGte: String, activeGte: Boolean, idLt: Int, nameLt: String, activeLt: Boolean, idLte: Int, nameLte: String, activeLte: Boolean, idLike: Int, nameLike: String, activeLike: Boolean, idIsNull: Boolean, nameIsNull: Boolean, activeIsNull: Boolean, idIn: [Int], nameIn: [String], activeIn: [Boolean], idNotIn: [Int], nameNotIn: [String], activeNotIn: [Boolean], idLikeNoCase: Int, nameLikeNoCase: String, activeLikeNoCase: Boolean, orderBy: AccountPropertiesEnum, orderByDesc: AccountPropertiesEnum, limit: [Int], offset: [Int]): [Account]
+  monthBudget(id: Int, bucket_id: Int, month_id: Int, constant: Float, percent: Float, idEq: Int, bucket_idEq: Int, month_idEq: Int, constantEq: Float, percentEq: Float, idGt: Int, bucket_idGt: Int, month_idGt: Int, constantGt: Float, percentGt: Float, idGte: Int, bucket_idGte: Int, month_idGte: Int, constantGte: Float, percentGte: Float, idLt: Int, bucket_idLt: Int, month_idLt: Int, constantLt: Float, percentLt: Float, idLte: Int, bucket_idLte: Int, month_idLte: Int, constantLte: Float, percentLte: Float, idLike: Int, bucket_idLike: Int, month_idLike: Int, constantLike: Float, percentLike: Float, idIsNull: Boolean, bucket_idIsNull: Boolean, month_idIsNull: Boolean, constantIsNull: Boolean, percentIsNull: Boolean, idIn: [Int], bucket_idIn: [Int], month_idIn: [Int], constantIn: [Float], percentIn: [Float], idNotIn: [Int], bucket_idNotIn: [Int], month_idNotIn: [Int], constantNotIn: [Float], percentNotIn: [Float], idLikeNoCase: Int, bucket_idLikeNoCase: Int, month_idLikeNoCase: Int, constantLikeNoCase: Float, percentLikeNoCase: Float, orderBy: MonthBudgetPropertiesEnum, orderByDesc: MonthBudgetPropertiesEnum, limit: [Int], offset: [Int]): [MonthBudget]
+  priority(id: Int, name: String, level: Int, idEq: Int, nameEq: String, levelEq: Int, idGt: Int, nameGt: String, levelGt: Int, idGte: Int, nameGte: String, levelGte: Int, idLt: Int, nameLt: String, levelLt: Int, idLte: Int, nameLte: String, levelLte: Int, idLike: Int, nameLike: String, levelLike: Int, idIsNull: Boolean, nameIsNull: Boolean, levelIsNull: Boolean, idIn: [Int], nameIn: [String], levelIn: [Int], idNotIn: [Int], nameNotIn: [String], levelNotIn: [Int], idLikeNoCase: Int, nameLikeNoCase: String, levelLikeNoCase: Int, orderBy: PriorityPropertiesEnum, orderByDesc: PriorityPropertiesEnum, limit: [Int], offset: [Int]): Priority
+}
+
+enum TransactionBucketPropertiesEnum {
+  transaction_id
+  bucket_id
+  bucket_amount
+}
+
+enum TransactionPropertiesEnum {
+  id
+  status_id
+  category_id
+  description
+  date
+}
+
+type BucketHolding {
+  account_id: Int
+  bucket_id: Int
+  minimum_percent_holding: Float
+}
+
+enum BucketHoldingPropertiesEnum {
+  account_id
+  bucket_id
+  minimum_percent_holding
+}
+
+type MonthBudget {
+  id: Int
+  bucket_id: Int
+  month_id: Int
+  constant: Float
+  percent: Float
+  bucket(id: Int, name: String, priority_id: Int, idEq: Int, nameEq: String, priority_idEq: Int, idGt: Int, nameGt: String, priority_idGt: Int, idGte: Int, nameGte: String, priority_idGte: Int, idLt: Int, nameLt: String, priority_idLt: Int, idLte: Int, nameLte: String, priority_idLte: Int, idLike: Int, nameLike: String, priority_idLike: Int, idIsNull: Boolean, nameIsNull: Boolean, priority_idIsNull: Boolean, idIn: [Int], nameIn: [String], priority_idIn: [Int], idNotIn: [Int], nameNotIn: [String], priority_idNotIn: [Int], idLikeNoCase: Int, nameLikeNoCase: String, priority_idLikeNoCase: Int, orderBy: BucketPropertiesEnum, orderByDesc: BucketPropertiesEnum, limit: [Int], offset: [Int]): Bucket
+  month(id: Int, year: Int, month_num: Int, idEq: Int, yearEq: Int, month_numEq: Int, idGt: Int, yearGt: Int, month_numGt: Int, idGte: Int, yearGte: Int, month_numGte: Int, idLt: Int, yearLt: Int, month_numLt: Int, idLte: Int, yearLte: Int, month_numLte: Int, idLike: Int, yearLike: Int, month_numLike: Int, idIsNull: Boolean, yearIsNull: Boolean, month_numIsNull: Boolean, idIn: [Int], yearIn: [Int], month_numIn: [Int], idNotIn: [Int], yearNotIn: [Int], month_numNotIn: [Int], idLikeNoCase: Int, yearLikeNoCase: Int, month_numLikeNoCase: Int, orderBy: MonthPropertiesEnum, orderByDesc: MonthPropertiesEnum, limit: [Int], offset: [Int]): Month
+  priority(id: Int, name: String, level: Int, idEq: Int, nameEq: String, levelEq: Int, idGt: Int, nameGt: String, levelGt: Int, idGte: Int, nameGte: String, levelGte: Int, idLt: Int, nameLt: String, levelLt: Int, idLte: Int, nameLte: String, levelLte: Int, idLike: Int, nameLike: String, levelLike: Int, idIsNull: Boolean, nameIsNull: Boolean, levelIsNull: Boolean, idIn: [Int], nameIn: [String], levelIn: [Int], idNotIn: [Int], nameNotIn: [String], levelNotIn: [Int], idLikeNoCase: Int, nameLikeNoCase: String, levelLikeNoCase: Int, orderBy: PriorityPropertiesEnum, orderByDesc: PriorityPropertiesEnum, limit: [Int], offset: [Int]): Priority
+}
+
+enum BucketPropertiesEnum {
+  id
+  name
+  priority_id
+}
+
+type Month {
+  id: Int
+  year: Int
+  month_num: Int
+}
+
+enum MonthPropertiesEnum {
+  id
+  year
+  month_num
+}
+
+type Priority {
+  id: Int
+  name: String
+  level: Int
+}
+
+enum PriorityPropertiesEnum {
+  id
+  name
+  level
+}
+
+enum MonthBudgetPropertiesEnum {
+  id
+  bucket_id
+  month_id
+  constant
+  percent
+}
+
+type Category {
+  id: Int
+  name: String
+}
+
+enum CategoryPropertiesEnum {
+  id
+  name
+}
+
+type AccountAlias {
+  id: Int
+  account_id: Int
+  alias: String
+}
+
+enum AccountAliasPropertiesEnum {
+  id
+  account_id
+  alias
+}
+
+type CategoryRule {
+  id: Int
+  category_id: Int
+  column_id: Int
+  constraint_id: Int
+  value: String
+  category(id: Int, name: String, idEq: Int, nameEq: String, idGt: Int, nameGt: String, idGte: Int, nameGte: String, idLt: Int, nameLt: String, idLte: Int, nameLte: String, idLike: Int, nameLike: String, idIsNull: Boolean, nameIsNull: Boolean, idIn: [Int], nameIn: [String], idNotIn: [Int], nameNotIn: [String], idLikeNoCase: Int, nameLikeNoCase: String, orderBy: CategoryPropertiesEnum, orderByDesc: CategoryPropertiesEnum, limit: [Int], offset: [Int]): Category
+  ruleColumn(id: Int, name: String, idEq: Int, nameEq: String, idGt: Int, nameGt: String, idGte: Int, nameGte: String, idLt: Int, nameLt: String, idLte: Int, nameLte: String, idLike: Int, nameLike: String, idIsNull: Boolean, nameIsNull: Boolean, idIn: [Int], nameIn: [String], idNotIn: [Int], nameNotIn: [String], idLikeNoCase: Int, nameLikeNoCase: String, orderBy: RuleColumnPropertiesEnum, orderByDesc: RuleColumnPropertiesEnum, limit: [Int], offset: [Int]): RuleColumn
+  ruleConstraint(id: Int, name: String, idEq: Int, nameEq: String, idGt: Int, nameGt: String, idGte: Int, nameGte: String, idLt: Int, nameLt: String, idLte: Int, nameLte: String, idLike: Int, nameLike: String, idIsNull: Boolean, nameIsNull: Boolean, idIn: [Int], nameIn: [String], idNotIn: [Int], nameNotIn: [String], idLikeNoCase: Int, nameLikeNoCase: String, orderBy: RuleConstraintPropertiesEnum, orderByDesc: RuleConstraintPropertiesEnum, limit: [Int], offset: [Int]): RuleConstraint
+}
+
+type RuleColumn {
+  id: Int
+  name: String
+}
+
+enum RuleColumnPropertiesEnum {
+  id
+  name
+}
+
+type RuleConstraint {
+  id: Int
+  name: String
+}
+
+enum RuleConstraintPropertiesEnum {
+  id
+  name
+}
+
+enum CategoryRulePropertiesEnum {
+  id
+  category_id
+  column_id
+  constraint_id
+  value
+}
+
+"""Domain API actions"""
+type RootMutationType {
+  """Creates a new account"""
+  createAccount(name: String!, active: Boolean, aliases: [String!]): Int
+
+  """Edits the description of a transaction"""
+  editDescription(id: Int!, description: String!): Int
+
+  """Confirms a transaction"""
+  confirmTransaction(id: Int!): Int
+
+  """Edits the category of a transaction"""
+  editCategory(id: Int!, category: String!): Int
+
+  """
+  For a given transaction, clears the buckets and adds the provided buckets
+  """
+  setTransactionBuckets(transaction_id: Int!, buckets: [UniqueName]!): Int
+
+  """Edits the date of a transaction"""
+  editDate(id: Int!, date: String!): Int
+
+  """Merges the transactions specified by the list of transaction IDs"""
+  mergeTransactions(ids: [Int!]!): Int
+}
+
+input UniqueName {
+  bucket_id: Int!
+  bucket_amount: Float!
+}

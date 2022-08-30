@@ -1,20 +1,20 @@
 
-const Account = require("../../models/Account");
-const AccountAlias = require("../../models/AccountAlias");
-const Bucket = require("../../models/Bucket");
-const BucketHolding = require("../../models/BucketHolding");
-const Category = require("../../models/Category");
-const CategoryRule = require("../../models/CategoryRule");
-const Month = require("../../models/Month");
-const MonthBudget = require("../../models/MonthBudget");
-const Priority = require("../../models/Priority");
-const RuleColumn = require("../../models/RuleColumn");
-const RuleConstraint = require("../../models/RuleConstraint");
-const Statement = require("../../models/Statement");
-const StatementTransaction = require("../../models/StatementTransaction");
-const Status = require("../../models/Status");
-const Transaction = require("../../models/Transaction");
-const TransactionBucket = require("../../models/TransactionBucket");
+const Account = require("../../../api/models/Account");
+const AccountAlias = require("../../../api/models/AccountAlias");
+const Bucket = require("../../../api/models/Bucket");
+const BucketHolding = require("../../../api/models/BucketHolding");
+const Category = require("../../../api/models/Category");
+const CategoryRule = require("../../../api/models/CategoryRule");
+const Month = require("../../../api/models/Month");
+const MonthBudget = require("../../../api/models/MonthBudget");
+const Priority = require("../../../api/models/Priority");
+const RuleColumn = require("../../../api/models/RuleColumn");
+const RuleConstraint = require("../../../api/models/RuleConstraint");
+const Statement = require("../../../api/models/Statement");
+const StatementTransaction = require("../../../api/models/StatementTransaction");
+const Status = require("../../../api/models/Status");
+const Transaction = require("../../../api/models/Transaction");
+const TransactionBucket = require("../../../api/models/TransactionBucket");
 // const dfd = import("danfojs")
 
 let createNewAccount = name => {

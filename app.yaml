@@ -1,5 +1,0 @@
-runtime: nodejs14
-service: default
-entrypoint: yarn
-args:
-  - 'ui-watch'

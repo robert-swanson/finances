@@ -225,7 +225,7 @@ var corsOptions = {
     origin: "http://localhost:8080"
 };
 app.use(cors(corsOptions));
-const initRoutes = require("./src/express/routes");
+const initRoutes = require("../ui/src/express/routes");
 app.use(express.urlencoded({ extended: true }));
 initRoutes(app);
 let port = 8081;
