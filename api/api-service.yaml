@@ -1,5 +1,0 @@
-runtime: nodejs14
-service: api-service
-entrypoint: yarn
-args:
-  - 'api-watch'
