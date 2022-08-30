@@ -1,3 +1,5 @@
 runtime: nodejs14
 service: default
-entrypoint: yarn ui-watch
+entrypoint: yarn
+args:
+  - 'ui-watch'
